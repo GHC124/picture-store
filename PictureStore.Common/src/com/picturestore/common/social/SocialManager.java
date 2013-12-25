@@ -1,4 +1,4 @@
-package picturestore.common.social;
+package com.picturestore.common.social;
 
 import java.io.IOException;
 import java.text.DateFormat;

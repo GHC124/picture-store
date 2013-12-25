@@ -1,4 +1,4 @@
-package picturestore.common.social;
+package com.picturestore.common.social;
 
 public class SocialException extends Exception {
 

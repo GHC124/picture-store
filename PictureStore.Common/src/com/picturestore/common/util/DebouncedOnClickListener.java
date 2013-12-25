@@ -1,4 +1,4 @@
-package picturestore.common.util;
+package com.picturestore.common.util;
 
 import java.util.Map;
 import java.util.WeakHashMap;
