@@ -1,0 +1,9 @@
+# cache for current jar dependency. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1387778540335 44558 47d92007ca13efd47efad1af94d842ecb5066310 D:\GHC_\Exercise\Projects\PictureStore\libs\signpost-core-1[1].2.1.1.jar
+1387778540335 44558 47d92007ca13efd47efad1af94d842ecb5066310 D:\GHC_\Exercise\Projects\PictureStore.Common\libs\signpost-core-1[1].2.1.1.jar
+1387244980198 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 D:\GHC_\Exercise\Projects\PictureStore\libs\android-support-v4.jar
+1387249961549 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 D:\GHC_\Exercise\Projects\PictureStore.Common\libs\android-support-v4.jar
+1387778540346 6455 1e6380adcb5808bfe13a934a2f35bfeed1adbc49 D:\GHC_\Exercise\Projects\PictureStore.Common\libs\signpost-commonshttp4-1[1].2.1.1.jar
+1387778540346 6455 1e6380adcb5808bfe13a934a2f35bfeed1adbc49 D:\GHC_\Exercise\Projects\PictureStore\libs\signpost-commonshttp4-1[1].2.1.1.jar

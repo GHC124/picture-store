@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <FrameLayout
+        android:id="@+id/ps_flMain_Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ps_llMain_MenuContent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ps_llMain_MenuContent"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ps_dimen_height_13"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/ps_rlMenuItem_Hot"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/menu_item_border"
+            android:minWidth="@dimen/ps_dimen_width_11"
+            android:onClick="onMenuItemClick" >
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="@string/menu_hot" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ps_rlMenuItem_Idol"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:minWidth="@dimen/ps_dimen_width_11"
+            android:onClick="onMenuItemClick" >
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="@string/menu_idol" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ps_rlMenuItem_Galary"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:minWidth="@dimen/ps_dimen_width_11"
+            android:onClick="onMenuItemClick" >
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="@string/menu_galary" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ps_rlMenuItem_Setting"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:minWidth="@dimen/ps_dimen_width_11"
+            android:onClick="onMenuItemClick" >
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:singleLine="true"
+                android:text="@string/menu_setting" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

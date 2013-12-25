@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ps_dimen_height_3"
+        android:background="@android:color/black" >
+
+        <TextView
+            style="@style/font_bold_while18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:text="@string/dialog_login_title"
+            android:textIsSelectable="true" />
+
+        <LinearLayout
+            android:id="@+id/ps_llDialogLogin_Close"
+            android:layout_width="@dimen/ps_dimen_width_5"
+            android:layout_height="@dimen/ps_dimen_height_3"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/font_bold_while18"
+                android:text="@string/display_x" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/font_normal_while14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/ps_dimen_height_2"
+            android:layout_marginTop="@dimen/ps_dimen_height_2"
+            android:text="@string/dialog_login_intruction" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/ps_dimen_height_2"
+            android:layout_marginTop="@dimen/ps_dimen_height_2"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/ps_btnDialogLogin_FacebookLogin"
+                style="@style/font_normal_while14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_13"
+                android:layout_marginBottom="5dp"
+                android:padding="0dp"
+                android:text="@string/dialog_login_facebook"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/ps_btnDialogLogin_FacebookLogout"
+                style="@style/font_normal_while14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_13"
+                android:layout_marginBottom="5dp"
+                android:padding="0dp"
+                android:text="@string/dialog_login_facebook_logout"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/ps_btnDialogLogin_TwitterLogin"
+                style="@style/font_normal_while14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_13"
+                android:text="@string/dialog_login_twitter"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/ps_btnDialogLogin_TwitterLogout"
+                style="@style/font_normal_while14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_13"
+                android:text="@string/dialog_login_twitter_logout"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

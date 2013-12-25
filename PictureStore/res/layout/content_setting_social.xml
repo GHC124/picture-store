@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/ps_dimen_height_3"
+    android:paddingLeft="@dimen/ps_dimen_height_2"
+    android:paddingRight="@dimen/ps_dimen_height_2"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ps_dimen_height_2"
+        android:layout_marginTop="@dimen/ps_dimen_height_2" >
+
+        <TextView
+            style="@style/font_bold_black12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/content_setting_social" 
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/ps_tvSetting_Social_Close"
+            style="@style/font_bold_CCCCCC14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/display_x" 
+            android:padding="5dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ps_dimen_width_2"
+        android:layout_marginRight="@dimen/ps_dimen_width_2"
+        android:background="@drawable/layout_border_corner"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ps_dimen_height_2" >
+
+            <TextView
+                style="@style/font_normal_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/content_setting_social_facebook" />
+
+            <LinearLayout
+                android:id="@+id/ps_llSetting_Social_Facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/ps_tvSetting_Social_Facebook"
+                    style="@style/font_normal_black14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/ps_tvSetting_Social_RemoveFacebook"
+                    style="@style/font_bold_CCCCCC14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/display_x" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ps_tvSetting_Social_AddFacebook"
+                style="@style/font_normal_black14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:text="@string/display_add"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#CCCCCC" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ps_dimen_height_2" >
+
+            <TextView
+                style="@style/font_normal_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/content_setting_social_twitter" />
+
+            <LinearLayout
+                android:id="@+id/ps_llSetting_Social_Twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:visibility="invisible" >
+
+                <TextView
+                    android:id="@+id/ps_tvSetting_Social_Twitter"
+                    style="@style/font_normal_black14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/ps_tvSetting_Social_RemoveTwitter"
+                    style="@style/font_bold_CCCCCC14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/display_x" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ps_tvSetting_Social_AddTwitter"
+                style="@style/font_normal_black14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:text="@string/display_add"
+                android:visibility="invisible" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

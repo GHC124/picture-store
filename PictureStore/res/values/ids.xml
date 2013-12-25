@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="loader_social_retrieve_request_token" type="id"/>
+	<item name="loader_social_retrieve_access_token" type="id"/>
+	<item name="loader_social_get_twitter_username" type="id"/>
+	<item name="loader_social_twitter_time" type="id"/>
+	<item name="loader_social_get_facebook_username" type="id"></item>
+</resources>

@@ -1,0 +1,18 @@
+<resources>
+
+    <!--
+         Customize dimensions originally defined in res/values/dimens.xml 4"(480-800) tablets in landscape here.
+    -->
+    
+    <!-- WIDTH -->
+    <dimen name="ps_dimen_width_2">10dp</dimen>
+    <dimen name="ps_dimen_width_5">25dp</dimen>
+	<dimen name="ps_dimen_width_8">34dp</dimen>
+	<dimen name="ps_dimen_width_11">70dp</dimen>
+	
+	<!-- HEIGHT -->
+	<dimen name="ps_dimen_height_2">10dp</dimen>
+	<dimen name="ps_dimen_height_3">25dp</dimen>
+	<dimen name="ps_dimen_height_13">50dp</dimen>
+	
+</resources>
