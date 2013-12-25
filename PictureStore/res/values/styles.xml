@@ -47,6 +47,12 @@
         <item name="android:textStyle">bold</item>
     </style>
     
+    <style name="font_bold_7FCCCCCC14">
+        <item name="android:textColor">#7FCCCCCC</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
     <style name="font_normal_while14">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">14sp</item>

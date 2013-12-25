@@ -15,6 +15,8 @@
     <string name="display_setting">Setting</string>
     <string name="display_close">Close</string>
 	<string name="display_content_description">ps</string>
+	<string name="display_previous">Previous</string>
+	<string name="display_next">Next</string>
 
     <!-- Content Setting -->
     <string name="content_setting_security">Security</string>
@@ -36,5 +38,8 @@
     <string name="content_hot_vietnam">Viet Nam</string>
     <string name="content_hot_usa">USA</string>
     <string name="content_hot_korea">Korea</string>
+    <string name="content_hot_detail_share">share</string>    
+    <string name="content_hot_detail_download">download</string>
+    <string name="content_hot_detail_favorite">favorite</string>
 
 </resources>

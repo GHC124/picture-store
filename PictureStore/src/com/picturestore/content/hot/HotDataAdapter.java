@@ -1,6 +1,10 @@
 package com.picturestore.content.hot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +21,16 @@ import com.picturestore.common.util.PictureStoreImageDownloader;
 public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 		BaseListAdapter {
 	private Context mContext;
+	private Fragment mFragment;
 	private int mResourceId;
 	private int mLayoutSize;
 	private boolean mInflatView;
 
-	public HotDataAdapter(Context context, int resourceId) {
+	public HotDataAdapter(Context context, Fragment fragment, int resourceId) {
 		super(context, resourceId);
 
 		mContext = context;
+		mFragment = fragment;
 		mResourceId = resourceId;
 		mLayoutSize = 70;
 		mInflatView = true;
@@ -46,7 +52,7 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		final boolean inflatView = mInflatView;
 		if (convertView == null) {
 			if (inflatView) {
@@ -63,8 +69,22 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 			if (inflatView) {
 				dataViewHolder.mImageView = (NetworkImageView) convertView
 						.findViewById(R.id.ps_imgHot_ListItem);
+				dataViewHolder.mImageView
+						.setOnClickListener(new View.OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								List<HotDataItem> list = new ArrayList<HotDataItem>();
+								for (int i = 0; i < getCount(); i++) {
+									list.add(getItem(i));
+								}
+								HotDetailDialog detailDialog = new HotDetailDialog(
+										mContext, mFragment, list, position);
+								detailDialog.show();
+							}
+						});
 			}
-			
+
 			convertView.setTag(dataViewHolder);
 		}
 		HotDataViewHolder dataViewHolder = (HotDataViewHolder) convertView
@@ -91,6 +111,10 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 		public void setInflatView(boolean inflatView) {
 			mInflatView = inflatView;
 		}
+	}
+
+	public interface HotDataListener {
+		void onClick(int position, HotDataItem dataItem);
 	}
 
 }

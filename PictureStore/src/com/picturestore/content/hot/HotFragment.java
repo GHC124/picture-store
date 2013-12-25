@@ -76,7 +76,7 @@ public class HotFragment implements IContentDetailView {
 					List<CountryData> countries = detailData.getCountryData();
 					for (CountryData countryData : countries) {
 						HotDataAdapter adapter = new HotDataAdapter(mContext,
-								R.layout.content_hot_list_item);
+								mFragment, R.layout.content_hot_list_item);
 						if (CountryData.CODE_VIETNAM
 								.equalsIgnoreCase(countryData.getCode())) {
 							mHlvVietNam.setAdapter(adapter);
@@ -129,5 +129,4 @@ public class HotFragment implements IContentDetailView {
 			mProgressDialog.dismiss();
 		}
 	}
-
 }
