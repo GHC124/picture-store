@@ -1,7 +1,5 @@
 package com.picturestore.profile;
 
-import picturestore.common.social.SocialListener;
-import picturestore.common.util.DebouncedOnClickListener;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -13,6 +11,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.picturestore.R;
+import com.picturestore.common.social.SocialListener;
+import com.picturestore.common.util.DebouncedOnClickListener;
 
 public final class LoginDialog extends Dialog {
 

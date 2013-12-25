@@ -1,17 +1,18 @@
 package com.picturestore.content.setting.social;
 
-import picturestore.common.social.SocialListener;
-import picturestore.common.util.DebouncedOnClickListener;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.picturestore.BaseApplication;
 import com.picturestore.R;
+import com.picturestore.common.social.SocialListener;
+import com.picturestore.common.util.DebouncedOnClickListener;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.profile.ProfileManager;
 
@@ -32,8 +33,10 @@ public class SettingSocialDialog extends Dialog {
 	public SettingSocialDialog(Context context, Fragment fragment,
 			SocialListener listener) {
 		super(context);
-		setContentView(R.layout.content_setting_social);
+		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new BitmapDrawable());
+
+		setContentView(R.layout.content_setting_social);
 
 		mContext = context;
 		mFragment = fragment;

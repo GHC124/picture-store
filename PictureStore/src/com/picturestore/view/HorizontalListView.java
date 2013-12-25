@@ -3,6 +3,7 @@ package com.picturestore.view;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
@@ -16,14 +17,20 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
+import com.picturestore.BaseListAdapter;
+import com.picturestore.BaseViewHolder;
+
 /**
- * This class make the ListView shows items in horizontal.
+ * This class make the ListView shows items in horizontal. Currently, it is only
+ * used for Moment Time Line.
  * 
+ * 
+ * @author DTV
  */
 public class HorizontalListView extends AdapterView<ListAdapter> {
 	public boolean mAlwaysOverrideTouch = true;
 
-	protected ListAdapter mAdapter;
+	protected BaseListAdapter mAdapter;
 	protected int mCurrentX;
 	protected int mNextX;
 	protected Scroller mScroller;
@@ -40,10 +47,9 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	private OnItemClickListener mOnItemClicked;
 	private OnItemLongClickListener mOnItemLongClicked;
 	private boolean mDataChanged = false;
+	private Activity mActivity;
 
 	private boolean mScrollToEnd;
-	private volatile boolean mScrollAnim;
-	private volatile boolean mScrollAnimRunning = false;
 	private boolean mNeedMeasureMaxX = false;
 
 	// mode/state of HorizontalListView.
@@ -56,6 +62,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	public HorizontalListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		initView();
+		mActivity = (Activity) context;
 	}
 
 	private synchronized void initView() {
@@ -122,7 +129,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		if (mAdapter != null) {
 			mAdapter.unregisterDataSetObserver(mDataObserver);
 		}
-		mAdapter = adapter;
+		mAdapter = (BaseListAdapter) adapter;
 		mAdapter.registerDataSetObserver(mDataObserver);
 		reset();
 	}
@@ -146,10 +153,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 
 	public boolean isScrollToEnd() {
 		return mScrollToEnd;
-	}
-
-	public synchronized void doScrollAnimation() {
-		mScrollAnim = true;
 	}
 
 	private void measureChild(View child) {
@@ -232,12 +235,13 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 
 		if (mScroller.computeScrollOffset()) {
 			mNextX = mScroller.getCurrX();
+
 		}
 
 		if (mNextX <= 0) {
 			mNextX = 0;
 		}
-		if (!mScrollAnim && mNextX >= mMaxX) {
+		if (mNextX >= mMaxX) {
 			mNextX = mMaxX;
 		}
 
@@ -253,7 +257,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 			post(mRequestLayoutRunnable);
 		} else {
 			mTouchMode = TouchMode.TOUCH_MODE_REST;
-			mScrollAnimRunning = mScrollAnim = false;
 		}
 	}
 
@@ -261,7 +264,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		@Override
 		public void run() {
 			invalidate();
-			if (mTouchMode == TouchMode.TOUCH_MODE_FLING || mScrollAnimRunning) {
+			if (mTouchMode == TouchMode.TOUCH_MODE_FLING) {
 				layoutChildren();
 			}
 		}
@@ -311,10 +314,23 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	private void fillListRight(int rightEdge, final int dx) {
 		int right = rightEdge;
 		int dX = dx;
+		int layoutSize = mAdapter.getItemLayoutSize();
 		View child = null;
 		View convertView = null;
+		boolean inflatView = true;
 		while (right + dX < getWidth() && mRightViewIndex < mAdapterChildCount) {
+			inflatView = true;
 			convertView = mRemovedViewQueue.poll();
+			if (right + dX + layoutSize < 0 && convertView == null) {
+				inflatView = false;
+			}
+			if (inflatView && convertView != null) {
+				BaseViewHolder listItem = (BaseViewHolder) convertView.getTag();
+				if (!listItem.isInflatView()) {
+					convertView = null;
+				}
+			}
+			mAdapter.setInflatView(inflatView);
 			child = mAdapter.getView(mRightViewIndex, convertView, this);
 			addAndMeasureChild(child, -1);
 			right += child.getMeasuredWidth();
@@ -348,14 +364,18 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		View child = getChildAt(0);
 		while (child != null && child.getRight() + dx <= 0) {
 			mDisplayOffset += child.getMeasuredWidth();
-			mRemovedViewQueue.offer(child);
+			if (((BaseViewHolder) child.getTag()).isInflatView()) {
+				mRemovedViewQueue.offer(child);
+			}
 			removeViewInLayout(child);
 			mLeftViewIndex++;
 			child = getChildAt(0);
 		}
 		child = getChildAt(getChildCount() - 1);
 		while (child != null && child.getLeft() + dx >= getWidth()) {
-			mRemovedViewQueue.offer(child);
+			if (((BaseViewHolder) child.getTag()).isInflatView()) {
+				mRemovedViewQueue.offer(child);
+			}
 			removeViewInLayout(child);
 			mRightViewIndex--;
 			child = getChildAt(getChildCount() - 1);
@@ -390,6 +410,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		int i = 0;
 		while (i < mAdapterChildCount) {
 			// Measure Max X
+			mAdapter.setInflatView(false);
 			child = mAdapter.getView(i, child, this);
 			LayoutParams params = child.getLayoutParams();
 			if (params == null) {
@@ -409,6 +430,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 			}
 			i++;
 		}
+		mAdapter.setInflatView(true);
 	}
 
 	@Override
@@ -471,9 +493,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	private OnGestureListener mOnGesture = new GestureDetector.SimpleOnGestureListener() {
 		@Override
 		public boolean onDown(MotionEvent e) {
-			if (mScrollAnim) {
-				return true;
-			}
 			HorizontalListView.this.onForceScrollFinish();
 
 			return true;
@@ -482,9 +501,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
-			if (mScrollAnim) {
-				return true;
-			}
 			if (((velocityX >= 0) && (!canScrollLeft()))
 					|| ((velocityX < 0) && (!canScrollRight()))) {
 				HorizontalListView.this.onForceScrollFinish();
@@ -498,9 +514,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2,
 				float distanceX, float distanceY) {
-			if (mScrollAnim) {
-				return true;
-			}
 			mTouchMode = TouchMode.TOUCH_MODE_SCROLL;
 
 			final boolean overScrollRight = (distanceX >= 0f)
@@ -518,9 +531,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 
 		@Override
 		public boolean onSingleTapConfirmed(MotionEvent e) {
-			if (mScrollAnim) {
-				return true;
-			}
 			for (int i = 0; i < getChildCount(); i++) {
 				View child = getChildAt(i);
 				if (isEventWithinView(e, child)) {
@@ -542,9 +552,6 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 
 		@Override
 		public void onLongPress(MotionEvent e) {
-			if (mScrollAnim) {
-				return;
-			}
 			int childCount = getChildCount();
 			for (int i = 0; i < childCount; i++) {
 				View child = getChildAt(i);

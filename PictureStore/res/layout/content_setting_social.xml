@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/ps_dimen_width_62"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingBottom="@dimen/ps_dimen_height_3"
     android:paddingLeft="@dimen/ps_dimen_height_2"
     android:paddingRight="@dimen/ps_dimen_height_2"
+    android:layout_gravity="center_horizontal"
     >
 
     <RelativeLayout

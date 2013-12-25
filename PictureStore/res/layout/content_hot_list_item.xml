@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/ps_dimen_width_14"
+    android:layout_height="@dimen/ps_dimen_height_8"
+    android:orientation="vertical" >
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/ps_imgHot_ListItem"
+        android:layout_width="@dimen/ps_dimen_width_14"
+        android:layout_height="@dimen/ps_dimen_height_8"
+        android:contentDescription="@string/display_content_description"
+        android:scaleType="fitXY" >
+    </com.android.volley.toolbox.NetworkImageView>
+
+</LinearLayout>

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.picturestore.view.EnhancedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/ps_dimen_height_2"
+        android:layout_marginLeft="@dimen/ps_dimen_height_2"
+        android:layout_marginRight="@dimen/ps_dimen_height_2"
+        android:layout_marginTop="@dimen/ps_dimen_height_2"
         android:orientation="vertical" >
 
         <TextView
@@ -41,13 +43,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/content_setting_social" />
-            
-            <TextView android:id="@+id/ps_tvSetting_Social_Setting"
+
+            <TextView
+                android:id="@+id/ps_tvSetting_Social_Setting"
                 style="@style/font_normal_black12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/display_setting" 
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:text="@string/display_setting" />
         </RelativeLayout>
 
         <LinearLayout
@@ -171,6 +174,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+        <!-- Using temparory view here to fix ScrollView bug when scroll down -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
     </LinearLayout>
 
-</ScrollView>
+</com.picturestore.view.EnhancedScrollView>

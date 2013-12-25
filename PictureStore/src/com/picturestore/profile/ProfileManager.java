@@ -1,11 +1,11 @@
 package com.picturestore.profile;
 
-import picturestore.common.social.SocialListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.util.Log;
 
 import com.picturestore.BaseApplication;
+import com.picturestore.common.social.SocialListener;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.social.FacebookManager;
 import com.picturestore.social.TwitterManager;

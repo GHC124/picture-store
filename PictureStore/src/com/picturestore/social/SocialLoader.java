@@ -8,11 +8,11 @@ import oauth.signpost.exception.OAuthException;
 
 import org.json.JSONObject;
 
-import picturestore.common.social.SocialException;
-import picturestore.common.social.SocialManager;
 import android.content.Context;
 import android.content.Loader;
 
+import com.picturestore.common.social.SocialException;
+import com.picturestore.common.social.SocialManager;
 import com.picturestore.loader.BaseLoader;
 import com.picturestore.loader.LoaderResult;
 

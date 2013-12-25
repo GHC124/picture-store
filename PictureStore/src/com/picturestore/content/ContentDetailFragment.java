@@ -6,17 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.picturestore.common.net.data.MasterData;
 import com.picturestore.content.ContentDetailsViewFactory.MenuItem;
 
 public class ContentDetailFragment extends Fragment {
 	private MenuItem mItemEnum;
-
+	private MasterData mMasterData;
+	
 	public ContentDetailFragment() {
 
 	}
 
-	public ContentDetailFragment(MenuItem tabEnum) {
+	public ContentDetailFragment(MenuItem tabEnum, MasterData masterData) {
 		mItemEnum = tabEnum;
+		mMasterData = masterData;
 	}
 
 	public MenuItem getEnum() {
@@ -32,6 +35,6 @@ public class ContentDetailFragment extends Fragment {
 		}
 		// return the matching view with item selected on ListView
 		return ContentDetailsViewFactory.createView(getActivity(), inflater,
-				container, mItemEnum, this);
+				container, mItemEnum, this, mMasterData);
 	}
 }

@@ -8,13 +8,14 @@
     <string name="menu_galary">Galary</string>
     <string name="menu_more">More</string>
     <string name="menu_setting">Setting</string>
-	<string name="display_x">X</string>
+    <string name="display_x">X</string>
     <string name="display_save">Save</string>
     <string name="display_add">Add</string>
     <string name="display_loading">Loading&#8230;</string>
     <string name="display_setting">Setting</string>
     <string name="display_close">Close</string>
-    
+	<string name="display_content_description">ps</string>
+
     <!-- Content Setting -->
     <string name="content_setting_security">Security</string>
     <string name="content_setting_social">Social</string>
@@ -22,8 +23,7 @@
     <string name="content_setting_social_twitter">Twitter</string>
     <string name="content_setting_country">Country</string>
     <string name="content_setting_sexual_level">Sexual level</string>
-    
-    
+
     <!-- Profile Login -->
     <string name="dialog_login_title">Login</string>
     <string name="dialog_login_intruction">Login to Facebook or Twitter</string>
@@ -31,5 +31,10 @@
     <string name="dialog_login_twitter">Login Twitter</string>
     <string name="dialog_login_facebook_logout">Logout Facebook</string>
     <string name="dialog_login_twitter_logout">Logout Twitter</string>
-    
+
+    <!-- Content Hot -->
+    <string name="content_hot_vietnam">Viet Nam</string>
+    <string name="content_hot_usa">USA</string>
+    <string name="content_hot_korea">Korea</string>
+
 </resources>

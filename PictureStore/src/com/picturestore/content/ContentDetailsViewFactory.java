@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.picturestore.common.net.data.MasterData;
 import com.picturestore.content.galary.GalaryFragment;
 import com.picturestore.content.hot.HotFragment;
 import com.picturestore.content.idol.IdolFragment;
@@ -59,8 +60,10 @@ public class ContentDetailsViewFactory {
 	}
 
 	public static View createView(Context context, LayoutInflater inflater,
-			ViewGroup container, MenuItem item, Fragment fragment) {
+			ViewGroup container, MenuItem item, Fragment fragment,
+			MasterData masterData) {
 		IContentDetailView detailsView = item.createView();
-		return detailsView.getView(context, inflater, container, fragment);
+		return detailsView.getView(context, inflater, container, fragment,
+				masterData);
 	}
 }

@@ -1,8 +1,7 @@
 package com.picturestore.content.setting;
 
-import picturestore.common.social.SocialListener;
-import picturestore.common.util.DebouncedOnClickListener;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,9 @@ import android.widget.TextView;
 
 import com.picturestore.BaseApplication;
 import com.picturestore.R;
+import com.picturestore.common.net.data.MasterData;
+import com.picturestore.common.social.SocialListener;
+import com.picturestore.common.util.DebouncedOnClickListener;
 import com.picturestore.content.IContentDetailView;
 import com.picturestore.content.setting.social.SettingSocialDialog;
 import com.picturestore.prefs.UserPreferences;
@@ -25,10 +27,11 @@ public class SettingFragment implements IContentDetailView {
 	private Switch mSwSocialTwitter;
 	private TextView mTvSocialAddFacebook;
 	private TextView mTvSocialAddTwitter;
+	private ProgressDialog mProgressDialog;
 
 	@Override
 	public View getView(Context context, LayoutInflater inflater,
-			ViewGroup container, Fragment fragment) {
+			ViewGroup container, Fragment fragment, MasterData masterData) {
 		mContext = context;
 		mFragment = fragment;
 
@@ -52,6 +55,11 @@ public class SettingFragment implements IContentDetailView {
 			}
 		});
 
+		mProgressDialog = new ProgressDialog(mContext);
+		mProgressDialog.setMessage(mContext
+				.getString(R.string.display_loading));
+		mProgressDialog.show();
+		
 		prepareData();
 
 		return layout;
@@ -60,6 +68,8 @@ public class SettingFragment implements IContentDetailView {
 	// Read save data and populate to UI
 	private void prepareData() {
 		prepareSocialData();
+		
+		mProgressDialog.dismiss();
 	}
 
 	private SocialListener mSocialListener = new SocialListener() {
@@ -160,13 +170,22 @@ public class SettingFragment implements IContentDetailView {
 
 		if (userPreferences.getFacebook()) {
 			mSwSocialFacebook.setVisibility(View.VISIBLE);
+			if(userPreferences.getSocialFacebook()){
+				mSwSocialFacebook.setChecked(true);
+			}else{
+				mSwSocialFacebook.setChecked(false);
+			}
 		} else {
-			mTvSocialAddFacebook.setVisibility(View.VISIBLE);
+			mTvSocialAddFacebook.setVisibility(View.VISIBLE);			
 		}
 
 		if (userPreferences.getTwitter()) {
 			mSwSocialTwitter.setVisibility(View.VISIBLE);
-
+			if(userPreferences.getSocialTwitter()){
+				mSwSocialTwitter.setChecked(true);
+			}else{
+				mSwSocialTwitter.setChecked(false);
+			}
 		} else {
 			mTvSocialAddTwitter.setVisibility(View.VISIBLE);
 

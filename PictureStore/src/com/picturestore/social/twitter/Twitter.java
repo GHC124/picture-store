@@ -9,7 +9,6 @@ import oauth.signpost.commonshttp.CommonsHttpOAuthProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import picturestore.common.social.SocialListener;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,6 +21,7 @@ import android.util.Log;
 import com.picturestore.BaseApplication;
 import com.picturestore.BaseConstants;
 import com.picturestore.R;
+import com.picturestore.common.social.SocialListener;
 import com.picturestore.loader.LoaderResult;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.social.SocialLoader;

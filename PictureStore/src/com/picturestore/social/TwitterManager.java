@@ -1,6 +1,5 @@
 package com.picturestore.social;
 
-import picturestore.common.social.SocialListener;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +8,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.WebViewDatabase;
 
 import com.picturestore.BaseApplication;
+import com.picturestore.common.social.SocialListener;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.social.twitter.Twitter;
 
@@ -40,6 +40,7 @@ public class TwitterManager {
 		mUserPrefs.setTwitterUserId(null);
 		mUserPrefs.setTwitterUserSecret(null);
 		mUserPrefs.setTwitterUserToken(null);
+		mUserPrefs.setSocialTwitter(false);
 
 		// Edge case: an illegal state exception is thrown if an instance of
 		// CookieSyncManager has not be created. CookieSyncManager is normally

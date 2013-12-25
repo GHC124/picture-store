@@ -3,7 +3,6 @@ package com.picturestore.social;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import picturestore.common.social.SocialListener;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -14,6 +13,7 @@ import android.webkit.WebViewDatabase;
 import com.picturestore.BaseApplication;
 import com.picturestore.BaseConstants;
 import com.picturestore.R;
+import com.picturestore.common.social.SocialListener;
 import com.picturestore.loader.LoaderResult;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.social.facebook.DialogError;
@@ -105,6 +105,7 @@ public class FacebookManager implements
 		mUserPrefs.setFacebook(false);
 		mUserPrefs.setFacebookUserToken(null);
 		mUserPrefs.setFacebookUserId(null);
+		mUserPrefs.setSocialFacebook(false);
 	}
 
 	private FacebookManager getFacebookManager() {
