@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/ps_dimen_width_62"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/ps_dimen_height_3"
-    android:paddingLeft="@dimen/ps_dimen_height_2"
-    android:paddingRight="@dimen/ps_dimen_height_2"
     android:layout_gravity="center_horizontal"
     >
 
@@ -22,15 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/content_setting_social" 
             android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/ps_tvSetting_Social_Close"
-            style="@style/font_bold_CCCCCC14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="@string/display_x" 
-            android:padding="5dp"/>
+        
     </RelativeLayout>
 
     <LinearLayout

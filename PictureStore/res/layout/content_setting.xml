@@ -22,8 +22,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ps_dimen_width_5"
-            android:layout_marginRight="@dimen/ps_dimen_width_5"
+            android:layout_marginLeft="@dimen/ps_dimen_width_2"
+            android:layout_marginRight="@dimen/ps_dimen_width_2"
             android:background="@drawable/layout_border_corner"
             android:orientation="vertical" >
 
@@ -32,105 +32,11 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <RelativeLayout
+        <RelativeLayout android:id="@+id/ps_rlSetting_Social"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ps_dimen_height_2"
-            android:layout_marginTop="@dimen/ps_dimen_height_2" >
-
-            <TextView
-                style="@style/font_bold_black12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/content_setting_social" />
-
-            <TextView
-                android:id="@+id/ps_tvSetting_Social_Setting"
-                style="@style/font_normal_black12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/display_setting" />
+            android:layout_height="wrap_content">
         </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ps_dimen_width_5"
-            android:layout_marginRight="@dimen/ps_dimen_width_5"
-            android:background="@drawable/layout_border_corner"
-            android:orientation="vertical" >
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ps_dimen_height_2" >
-
-                <TextView
-                    style="@style/font_normal_black12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/content_setting_social_facebook" />
-
-                <Switch
-                    android:id="@+id/ps_swSetting_Social_Facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:thumbTextPadding="5dp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ps_tvSetting_Social_AddFacebook"
-                    style="@style/font_normal_black14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="5dp"
-                    android:text="@string/display_add"
-                    android:visibility="invisible" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#CCCCCC" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ps_dimen_height_2" >
-
-                <TextView
-                    style="@style/font_normal_black12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/content_setting_social_twitter" />
-
-                <Switch
-                    android:id="@+id/ps_swSetting_Social_Twitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:thumbTextPadding="5dp"
-                    android:visibility="invisible" />
-
-                <TextView
-                    android:id="@+id/ps_tvSetting_Social_AddTwitter"
-                    style="@style/font_normal_black14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="5dp"
-                    android:text="@string/display_add"
-                    android:visibility="invisible" />
-            </RelativeLayout>
-        </LinearLayout>
-
+        
         <TextView
             style="@style/font_bold_black12"
             android:layout_width="wrap_content"
@@ -142,8 +48,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ps_dimen_width_5"
-            android:layout_marginRight="@dimen/ps_dimen_width_5"
+            android:layout_marginLeft="@dimen/ps_dimen_width_2"
+            android:layout_marginRight="@dimen/ps_dimen_width_2"
             android:background="@drawable/layout_border_corner"
             android:orientation="vertical" >
 
@@ -163,8 +69,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ps_dimen_width_5"
-            android:layout_marginRight="@dimen/ps_dimen_width_5"
+            android:layout_marginLeft="@dimen/ps_dimen_width_2"
+            android:layout_marginRight="@dimen/ps_dimen_width_2"
             android:background="@drawable/layout_border_corner"
             android:orientation="vertical"
             android:padding="@dimen/ps_dimen_height_2" >

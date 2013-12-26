@@ -17,6 +17,7 @@
 	<string name="display_content_description">ps</string>
 	<string name="display_previous">Previous</string>
 	<string name="display_next">Next</string>
+	<string name="display_publish">Publish</string>
 
     <!-- Content Setting -->
     <string name="content_setting_security">Security</string>
@@ -41,5 +42,9 @@
     <string name="content_hot_detail_share">share</string>    
     <string name="content_hot_detail_download">download</string>
     <string name="content_hot_detail_favorite">favorite</string>
+    <string name="content_hot_share_dialog">Share</string>
+    <string name="content_hot_share_dialog_hint">Type your comment here&#8230;</string>
+    <string name="content_hot_share_dialog_textcount_over_all">You\'ve reached Twitter\'s character limit. To add more characters, you will need to turn Twitter off</string>
+	<string name="content_hot_share_dialog_textcount_over_twitter">You\'ve reached Twitter\'s character limit</string>
 
 </resources>
