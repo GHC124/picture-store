@@ -1,6 +1,7 @@
 package com.picturestore.content.hot;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
@@ -14,10 +15,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.picturestore.BaseListAdapter;
 import com.picturestore.R;
 import com.picturestore.common.net.data.CountryData;
 import com.picturestore.common.net.data.HotData;
@@ -51,6 +54,32 @@ public class HotFragment implements IContentDetailView {
 				.findViewById(R.id.ps_hlvHot_Korea);
 		mHlvUSA = (HorizontalListView) layout.findViewById(R.id.ps_hlvHot_USA);
 
+		mHlvVietNam
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						onItemDetailClick(mHlvVietNam, position);
+					}
+				});
+		mHlvKorea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				onItemDetailClick(mHlvKorea, position);
+			}
+		});
+		mHlvUSA.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				onItemDetailClick(mHlvUSA, position);
+			}
+		});
+
 		if (mMasterData != null) {
 			mProgressDialog = new ProgressDialog(mContext);
 			mProgressDialog.setMessage(mContext
@@ -59,6 +88,7 @@ public class HotFragment implements IContentDetailView {
 
 			prepareData();
 		}
+		;
 
 		return layout;
 	}
@@ -128,5 +158,17 @@ public class HotFragment implements IContentDetailView {
 		} else {
 			mProgressDialog.dismiss();
 		}
+	}
+
+	private void onItemDetailClick(HorizontalListView listView, int position) {
+		BaseListAdapter adapter = (BaseListAdapter) listView.getAdapter();
+
+		List<HotDataItem> list = new ArrayList<HotDataItem>();
+		for (int i = 0; i < adapter.getCount(); i++) {
+			list.add((HotDataItem) adapter.getItem(i));
+		}
+		HotDetailDialog detailDialog = new HotDetailDialog(mContext, mFragment,
+				list, position);
+		detailDialog.show();
 	}
 }

@@ -1,8 +1,5 @@
 package com.picturestore.content.hot;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -32,7 +29,9 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 		mContext = context;
 		mFragment = fragment;
 		mResourceId = resourceId;
-		mLayoutSize = 70;
+		mLayoutSize = (int) context.getResources().getDimension(
+				R.dimen.ps_dimen_width_14);
+		;
 		mInflatView = true;
 	}
 
@@ -69,20 +68,6 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 			if (inflatView) {
 				dataViewHolder.mImageView = (NetworkImageView) convertView
 						.findViewById(R.id.ps_imgHot_ListItem);
-				dataViewHolder.mImageView
-						.setOnClickListener(new View.OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								List<HotDataItem> list = new ArrayList<HotDataItem>();
-								for (int i = 0; i < getCount(); i++) {
-									list.add(getItem(i));
-								}
-								HotDetailDialog detailDialog = new HotDetailDialog(
-										mContext, mFragment, list, position);
-								detailDialog.show();
-							}
-						});
 			}
 
 			convertView.setTag(dataViewHolder);

@@ -93,7 +93,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	public void setOnItemLongClickListener(
 			AdapterView.OnItemLongClickListener listener) {
 		mOnItemLongClicked = listener;
-	}
+	}	
 
 	private DataSetObserver mDataObserver = new DataSetObserver() {
 		@Override

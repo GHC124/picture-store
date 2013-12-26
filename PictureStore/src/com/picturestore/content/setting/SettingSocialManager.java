@@ -1,11 +1,9 @@
-package com.picturestore.content.setting.social;
+package com.picturestore.content.setting;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,8 +14,9 @@ import com.picturestore.common.util.DebouncedOnClickListener;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.profile.ProfileManager;
 
-public class SettingSocialDialog extends Dialog {
+public class SettingSocialManager {
 
+	private View mLayout;
 	private LinearLayout mLlSocialFacebook;
 	private LinearLayout mLlSocialTwitter;
 	private TextView mTvSocialFacebook;
@@ -28,28 +27,31 @@ public class SettingSocialDialog extends Dialog {
 	private TextView mTvSocialAddTwitter;
 	private final Context mContext;
 	private final Fragment mFragment;
-	private final SocialListener mSettingSocialListener;
 
-	public SettingSocialDialog(Context context, Fragment fragment,
-			SocialListener listener) {
-		super(context);
-		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setBackgroundDrawable(new BitmapDrawable());
-
-		setContentView(R.layout.content_setting_social);
+	public SettingSocialManager(Context context, Fragment fragment) {
 
 		mContext = context;
 		mFragment = fragment;
-		mSettingSocialListener = listener;
 
-		mLlSocialFacebook = (LinearLayout) findViewById(R.id.ps_llSetting_Social_Facebook);
-		mLlSocialTwitter = (LinearLayout) findViewById(R.id.ps_llSetting_Social_Twitter);
-		mTvSocialFacebook = (TextView) findViewById(R.id.ps_tvSetting_Social_Facebook);
-		mTvSocialTwitter = (TextView) findViewById(R.id.ps_tvSetting_Social_Twitter);
-		mTvSocialRemoveFacebook = (TextView) findViewById(R.id.ps_tvSetting_Social_RemoveFacebook);
-		mTvSocialRemoveTwitter = (TextView) findViewById(R.id.ps_tvSetting_Social_RemoveTwitter);
-		mTvSocialAddFacebook = (TextView) findViewById(R.id.ps_tvSetting_Social_AddFacebook);
-		mTvSocialAddTwitter = (TextView) findViewById(R.id.ps_tvSetting_Social_AddTwitter);
+		mLayout = LayoutInflater.from(context).inflate(
+				R.layout.content_setting_social, null);
+
+		mLlSocialFacebook = (LinearLayout) mLayout
+				.findViewById(R.id.ps_llSetting_Social_Facebook);
+		mLlSocialTwitter = (LinearLayout) mLayout
+				.findViewById(R.id.ps_llSetting_Social_Twitter);
+		mTvSocialFacebook = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_Facebook);
+		mTvSocialTwitter = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_Twitter);
+		mTvSocialRemoveFacebook = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_RemoveFacebook);
+		mTvSocialRemoveTwitter = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_RemoveTwitter);
+		mTvSocialAddFacebook = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_AddFacebook);
+		mTvSocialAddTwitter = (TextView) mLayout
+				.findViewById(R.id.ps_tvSetting_Social_AddTwitter);
 
 		mTvSocialAddFacebook.setOnClickListener(new DebouncedOnClickListener() {
 
@@ -87,18 +89,13 @@ public class SettingSocialDialog extends Dialog {
 						ProfileManager.logoutTwitter(mFragment.getActivity(),
 								mFragment, mSocialListener);
 					}
-				});
-
-		View close = findViewById(R.id.ps_tvSetting_Social_Close);
-		close.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				dismiss();
-			}
-		});
+				});		
 
 		prepareSocialData();
+	}
+
+	public View getView() {
+		return mLayout;
 	}
 
 	private SocialListener mSocialListener = new SocialListener() {
@@ -125,9 +122,6 @@ public class SettingSocialDialog extends Dialog {
 					break;
 				}
 			}
-			if (mSettingSocialListener != null) {
-				mSettingSocialListener.onLogin(type, success);
-			}
 		}
 
 		@Override
@@ -147,9 +141,6 @@ public class SettingSocialDialog extends Dialog {
 					mTvSocialTwitter.setText("");
 					break;
 				}
-			}
-			if (mSettingSocialListener != null) {
-				mSettingSocialListener.onLogout(type, success);
 			}
 		}
 	};
