@@ -60,13 +60,13 @@
         android:background="@drawable/layout_border_corner"
         >
 
-        <com.android.volley.toolbox.NetworkImageView
+        <com.picturestore.animation.FadingImageView
             android:id="@+id/ps_imgHot_Detail_Item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/display_content_description"
             android:scaleType="fitXY" >
-        </com.android.volley.toolbox.NetworkImageView>
+        </com.picturestore.animation.FadingImageView>
         <TextView
             android:id="@+id/ps_tvHot_Detail_Previous"
             style="@style/font_bold_7FCCCCCC14"

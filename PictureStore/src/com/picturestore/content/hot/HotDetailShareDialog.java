@@ -44,7 +44,8 @@ public class HotDetailShareDialog extends Dialog {
 		mFragment = fragment;
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new BitmapDrawable());
-
+		getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+		
 		setContentView(R.layout.content_hot_detail_share);
 
 		mBtnPublish = (Button) findViewById(R.id.ps_btHot_Share_Publish);
@@ -130,7 +131,7 @@ public class HotDetailShareDialog extends Dialog {
 
 	private void checkTwitterText(int length, boolean truncat) {
 		boolean allowPost = false;
-		if (length > 0) {
+		if (length >= 0) {
 			allowPost = checkTwitterTextCount(MAX_TWITTER_TEXT_COUNT - length,
 					truncat);
 		}

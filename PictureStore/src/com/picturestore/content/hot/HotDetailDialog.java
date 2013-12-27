@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.picturestore.R;
+import com.picturestore.common.util.PictureStoreDownloadManager;
 import com.picturestore.common.util.PictureStoreImageDownloader;
 
 public class HotDetailDialog extends Dialog {
@@ -31,18 +32,45 @@ public class HotDetailDialog extends Dialog {
 
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new BitmapDrawable());
+		getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
 		setContentView(R.layout.content_hot_detail);
 
 		mImageView = (NetworkImageView) findViewById(R.id.ps_imgHot_Detail_Item);
-		
+
 		View share = findViewById(R.id.ps_tvHot_Detail_Share);
 		share.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				HotDetailShareDialog shareDialog = new HotDetailShareDialog(mContext, mFragment);
+				HotDetailShareDialog shareDialog = new HotDetailShareDialog(
+						mContext, mFragment);
 				shareDialog.show();
+			}
+		});
+
+		View download = findViewById(R.id.ps_tvHot_Detail_Download);
+		download.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (PictureStoreDownloadManager
+						.isDownloadManagerAvailable(mContext)) {
+					HotDataItem dataItem = mListData.get(mCurrentPosition);
+					int separate = dataItem.getImage().lastIndexOf("/");
+					String fileName = dataItem.getImage();
+					if (separate > 0) {
+						fileName = fileName.substring(separate + 1);
+					}
+					//int point = fileName.indexOf(".");
+					String title = fileName;
+					//if (point > 0) {
+					//	title = fileName.substring(0, point);
+					//}					
+
+					PictureStoreDownloadManager.getInstance().download(
+							mContext, dataItem.getImage(), fileName, title, "");
+				}
 			}
 		});
 
@@ -70,7 +98,7 @@ public class HotDetailDialog extends Dialog {
 			public void onClick(View v) {
 				dismiss();
 			}
-		});		
+		});
 
 		mListData = data;
 		if (mListData != null) {
@@ -119,7 +147,7 @@ public class HotDetailDialog extends Dialog {
 				if (previous.getVisibility() != View.INVISIBLE) {
 					previous.setVisibility(View.INVISIBLE);
 				}
-			}			
+			}
 			PictureStoreImageDownloader.download(mListData
 					.get(mCurrentPosition).getImage(), mImageView);
 		}
@@ -138,7 +166,7 @@ public class HotDetailDialog extends Dialog {
 				previous.setVisibility(View.INVISIBLE);
 			}
 		}
-		
+
 		PictureStoreImageDownloader.download(
 				mListData.get(position).getImage(), mImageView);
 

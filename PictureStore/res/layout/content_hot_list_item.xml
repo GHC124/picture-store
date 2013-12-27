@@ -5,12 +5,12 @@
     android:orientation="vertical"
     android:background="@drawable/hot_item_border" >
 
-    <com.android.volley.toolbox.NetworkImageView
+    <com.picturestore.animation.FadeInImageView
         android:id="@+id/ps_imgHot_ListItem"
         android:layout_width="@dimen/ps_dimen_width_14"
         android:layout_height="@dimen/ps_dimen_height_8"
         android:contentDescription="@string/display_content_description"
         android:scaleType="fitXY" >
-    </com.android.volley.toolbox.NetworkImageView>
+    </com.picturestore.animation.FadeInImageView>
 
 </LinearLayout>

@@ -118,6 +118,7 @@ public class MainActivity extends BaseActivity {
 		// get fragment
 		if (fg != null) {
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 			ft.replace(R.id.ps_flMain_Content, fg);
 			ft.commit();
 		}
