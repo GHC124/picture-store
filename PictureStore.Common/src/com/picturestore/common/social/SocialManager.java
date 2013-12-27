@@ -80,6 +80,30 @@ public class SocialManager {
 
 	private static final String TWITTER_POST_URL = "https://api.twitter.com/1.1/statuses/update.json";
 
+	public static JSONObject postOnTwitter(OAuthConsumer consumer, String message)
+			throws SocialException {
+		JSONObject jso;
+		try {
+			HttpPost post = new HttpPost(TWITTER_POST_URL);
+			LinkedList<BasicNameValuePair> out = new LinkedList<BasicNameValuePair>();
+
+			out.add(new BasicNameValuePair("status", message));
+			post.setEntity(new UrlEncodedFormEntity(out, HTTP.UTF_8));
+
+			consumer.sign(post);
+
+			String response = getResponse(post);
+			jso = new JSONObject(response);
+		} catch (IOException e) {
+			throw new SocialException("Failure processing request", e);
+		} catch (JSONException e) {
+			throw new SocialException("Failure parsing response", e);
+		} catch (OAuthException e) {
+			throw new SocialException("Failure processing auth", e);
+		}
+		return jso;
+	}
+	
 	public static JSONObject replyOnTwitter(OAuthConsumer consumer,
 			String tweetId, String userName, String message)
 			throws SocialException {
