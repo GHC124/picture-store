@@ -1,6 +1,8 @@
 package com.picturestore.common.social;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,6 +61,30 @@ public class SocialManager {
 		return jso;
 	}
 
+	private static final String FACEBOOK_POST_URL = "https://graph.facebook.com/me/feed?message=:message&format=json&access_token=:accessToken";
+	private static final String FACEBOOK_POST_ACCESSTOKEN_VAR = ":accessToken";
+	private static final String FACEBOOK_POST_MESSAGE_VAR = ":message";
+
+	public static JSONObject postOnFacebook(String accessToken, String message)
+			throws SocialException {
+		JSONObject jso;
+		try {
+			message = URLEncoder.encode(message, "UTF-8");
+			String url = FACEBOOK_POST_URL.replace(
+					FACEBOOK_POST_ACCESSTOKEN_VAR, accessToken);
+			url = url.replace(FACEBOOK_POST_MESSAGE_VAR, message);
+			HttpPost post = new HttpPost(url);
+
+			String response = getResponse(post);
+			jso = new JSONObject(response);
+		} catch (JSONException e) {
+			throw new SocialException("Failure parsing response", e);
+		} catch (UnsupportedEncodingException e) {
+			throw new SocialException("Failure encode data", e);
+		}
+		return jso;
+	}
+
 	private static final String TWITTER_VERIFY_CREDS = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
 	public static JSONObject getTwitterInfo(OAuthConsumer consumer)
@@ -80,8 +106,8 @@ public class SocialManager {
 
 	private static final String TWITTER_POST_URL = "https://api.twitter.com/1.1/statuses/update.json";
 
-	public static JSONObject postOnTwitter(OAuthConsumer consumer, String message)
-			throws SocialException {
+	public static JSONObject postOnTwitter(OAuthConsumer consumer,
+			String message) throws SocialException {
 		JSONObject jso;
 		try {
 			HttpPost post = new HttpPost(TWITTER_POST_URL);
@@ -103,7 +129,7 @@ public class SocialManager {
 		}
 		return jso;
 	}
-	
+
 	public static JSONObject replyOnTwitter(OAuthConsumer consumer,
 			String tweetId, String userName, String message)
 			throws SocialException {
