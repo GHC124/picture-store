@@ -118,7 +118,7 @@ public class Facebook {
 	public void authorize(Activity activity, String[] permissions, final DialogListener listener) {
 		authorize(activity, permissions, DEFAULT_AUTH_ACTIVITY_CODE, listener);
 	}
-
+	
 	/**
 	 * Full authorize method.
 	 * 

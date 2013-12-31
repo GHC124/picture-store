@@ -30,7 +30,20 @@ public class SocialLoader extends BaseLoader<LoaderResult> {
 		return new SocialLoader(context, new SocialMethodCaller<JSONObject>() {
 			@Override
 			protected JSONObject execute() throws SocialException {
-				return SocialManager.getFacebookInfo(accessToken);
+				if(sessionValid){
+					return SocialManager.getFacebookInfo(accessToken);
+				}
+				return null;
+			}
+		});
+	}
+	
+	public static SocialLoader postOnFacebook(Context context,
+			final String accessToken, final String message) {
+		return new SocialLoader(context, new SocialMethodCaller<JSONObject>() {
+			@Override
+			protected JSONObject execute() throws SocialException {
+				return SocialManager.postOnFacebook(accessToken, message);
 			}
 		});
 	}
@@ -45,6 +58,16 @@ public class SocialLoader extends BaseLoader<LoaderResult> {
 		});
 	}
 
+	public static SocialLoader postOnTwitter(Context context,
+			final OAuthConsumer consumer, final String message) {
+		return new SocialLoader(context, new SocialMethodCaller<JSONObject>() {
+			@Override
+			protected JSONObject execute() throws SocialException {
+				return SocialManager.postOnTwitter(consumer, message);
+			}
+		});
+	}
+	
 	public static SocialLoader replyOnTwitter(Context context,
 			final OAuthConsumer consumer, final String tweetId,
 			final String userName, final String message) {

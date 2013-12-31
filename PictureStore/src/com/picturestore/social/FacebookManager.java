@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
@@ -25,6 +26,31 @@ import com.picturestore.social.facebook.Util;
 
 public class FacebookManager implements
 		LoaderManager.LoaderCallbacks<LoaderResult> {
+	public static final int FACEBOOK_ACTION_POST = 1;
+	public static final String EXTRA_FACEBOOK_ACTION = "action";
+	public static final String EXTRA_FACEBOOK_MESSAGE = "message";
+	private static final boolean DEBUD = BaseApplication.getInstance()
+			.loggingEnabled();
+
+	// facebook errors per: http://fbdevwiki.com/wiki/Error_codes#FQL_Errors
+
+	// { "error": {
+	// "type": "OAuthException",
+	// "message": "(#1500) The url you supplied is invalid",
+	// "code": 1500
+	// }
+	// }
+	private static final int FACEBOOK_INVALID_URL_ERROR = 1500;
+
+	// { "error": {
+	// "type":"OAuthException",
+	// "message":"Error validating access token: User <abc> has not authorized application <def>.",
+	// "error_subcode":458,
+	// "code":190
+	// }
+	// }
+	private static final int FACEBOOK_INVALID_ACCESS_TOKEN_ERROR = 190;
+
 	private final Context mContext;
 	private final LoaderManager mLoaderManager;
 	private final UserPreferences mUserPrefs = BaseApplication.getInstance()
@@ -32,6 +58,9 @@ public class FacebookManager implements
 	private final Facebook mFacebookClient = new Facebook(
 			BaseConstants.FACEBOOK_APP_ID);
 	private final SocialListener mSocialListener;
+	private ProgressDialog mProgressDialog;
+	private int mAction = -1;
+	private String mMessage;
 
 	public FacebookManager(Context context, LoaderManager loaderManager,
 			SocialListener socialListener) {
@@ -63,6 +92,52 @@ public class FacebookManager implements
 		wvdb.clearUsernamePassword();
 
 		sendLogoutMessage();
+	}
+
+	public void share(Bundle bundle) {
+		initDataFromExtras(bundle);
+		initFacebookUserTokenAndSecret();
+		doAction();
+	}
+
+	private void initDataFromExtras(Bundle extras) {
+		if (extras != null) {
+			if (extras.get(EXTRA_FACEBOOK_ACTION) != null) {
+				mAction = extras.getInt(EXTRA_FACEBOOK_ACTION);
+			}
+			if (extras.get(EXTRA_FACEBOOK_MESSAGE) != null) {
+				mMessage = extras.get(EXTRA_FACEBOOK_MESSAGE).toString();
+			}
+		}
+	}
+
+	private void initFacebookUserTokenAndSecret() {
+		boolean valid = SessionStore.restore(mFacebookClient, mContext);
+		if (!valid) {
+			promptForLogin();
+		}
+	}
+
+	private void doAction() {
+		showProgress();
+		if (mAction == FACEBOOK_ACTION_POST) {
+			mLoaderManager.restartLoader(R.id.loader_social_facebook_post,
+					null, this);
+		}
+	}
+
+	private void showProgress() {
+		if (mProgressDialog == null) {
+			mProgressDialog = new ProgressDialog(mContext);
+			mProgressDialog.setMessage("Loading...");
+		}
+		mProgressDialog.show();
+	}
+
+	private void hideProgress() {
+		if (mProgressDialog != null) {
+			mProgressDialog.dismiss();
+		}
 	}
 
 	private void sendLogoutMessage() {
@@ -121,6 +196,10 @@ public class FacebookManager implements
 					mFacebookClient.isSessionValid(),
 					mFacebookClient.getAccessToken());
 			break;
+		case R.id.loader_social_facebook_post:
+			loader = SocialLoader.postOnFacebook(mContext,
+					mFacebookClient.getAccessToken(), mMessage);
+			break;
 		default:
 			throw new IllegalAccessError("Unknown loader id " + id);
 		}
@@ -138,15 +217,76 @@ public class FacebookManager implements
 					String id = jso.getString("id");
 					mUserPrefs.setFacebookUserName(name);
 					mUserPrefs.setFacebookUserId(id);
-					sendMessage(name, id);
+					sendLoginMessage(name, id);
+					if (mAction != -1) {
+						doAction();
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			} else if (result.getFailureReason() != null) {
+			} else if (result.getFailureReason() != null && DEBUD) {
 				result.getFailureReason().printStackTrace();
 			}
 			mLoaderManager
 					.destroyLoader(R.id.loader_social_get_facebook_username);
+			break;
+		case R.id.loader_social_facebook_post:
+			if (result.isSuccessful()) {
+				String responseValue = null;
+				String exceptionType = null;
+				int errorCode = -1;
+				try {
+					JSONObject jso = result.getData();
+					responseValue = jso.getString("id");
+					if (jso.has("error")) {
+						JSONObject error = jso.getJSONObject("error");
+						exceptionType = error.getString("type");
+						errorCode = error.getInt("code");
+					}
+				} catch (JSONException e) {
+					if (DEBUD) {
+						e.printStackTrace();
+					}
+				}
+				if (responseValue != null) {
+					sendShareMessage(FACEBOOK_ACTION_POST, true, null);
+				} else if (exceptionType != null
+						&& exceptionType.equalsIgnoreCase("OAuthException")) {
+					switch (errorCode) {
+					case FACEBOOK_INVALID_URL_ERROR:
+						// Note: on occasion we receive an invalid
+						// poster url that we
+						// attempt to post on facebook. sometimes
+						// facebook accepts the
+						// invalid url. sometimes it doesn't.
+
+						// there is nothing we can do, other than
+						// display the failure
+						// to the user.
+						sendShareMessage(FACEBOOK_ACTION_POST, false, null);
+						break;
+					case FACEBOOK_INVALID_ACCESS_TOKEN_ERROR:
+
+						// 1) logout of facebook
+						// 2) kick of facebook authentication
+						// 3) dismiss "loading..." dialog
+						// 4) return
+						// 5) user has the ability to try and post
+						// again.
+
+						unlink();
+						promptForLogin();
+						break;
+					default:
+						// do nothing
+						break;
+					}
+				}
+			} else if (result.getFailureReason() != null && DEBUD) {
+				result.getFailureReason().printStackTrace();
+			}
+			mLoaderManager.destroyLoader(R.id.loader_social_facebook_post);
+			hideProgress();
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown loader id "
@@ -158,9 +298,16 @@ public class FacebookManager implements
 	public void onLoaderReset(Loader<LoaderResult> arg0) {
 	}
 
-	private void sendMessage(String name, String id) {
+	private void sendLoginMessage(String name, String id) {
 		if (mSocialListener != null) {
 			mSocialListener.onLogin(SocialListener.SOCIAL_FACEBOOK, true);
+		}
+	}
+
+	private void sendShareMessage(int action, boolean status, String message) {
+		if (mSocialListener != null) {
+			mSocialListener.onShare(SocialListener.SOCIAL_FACEBOOK, action,
+					status);
 		}
 	}
 }

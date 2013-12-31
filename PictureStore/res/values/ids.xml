@@ -6,4 +6,6 @@
 	<item name="loader_social_get_twitter_username" type="id"/>
 	<item name="loader_social_twitter_time" type="id"/>
 	<item name="loader_social_get_facebook_username" type="id"></item>
+	<item name="loader_social_twitter_post" type="id"></item>
+	<item name="loader_social_facebook_post" type="id"></item>
 </resources>

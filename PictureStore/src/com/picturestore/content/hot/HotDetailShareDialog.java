@@ -1,9 +1,12 @@
 package com.picturestore.content.hot;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -20,6 +23,9 @@ import com.picturestore.common.social.SocialListener;
 import com.picturestore.common.util.DebouncedOnClickListener;
 import com.picturestore.prefs.UserPreferences;
 import com.picturestore.profile.ProfileManager;
+import com.picturestore.social.FacebookManager;
+import com.picturestore.social.TwitterManager;
+import com.picturestore.social.twitter.Twitter;
 
 public class HotDetailShareDialog extends Dialog {
 	private static final int MAX_TWITTER_TEXT_COUNT = 140;
@@ -37,6 +43,10 @@ public class HotDetailShareDialog extends Dialog {
 	private int mCharacterCount = MAX_TWITTER_TEXT_COUNT;
 	private Button mBtnPublish;
 
+	private boolean mShareFacebookComplete;
+	private boolean mShareTwitterComplete;
+	private StringBuilder mShareMessage = new StringBuilder();
+
 	public HotDetailShareDialog(Context context, Fragment fragment) {
 		super(context);
 
@@ -45,12 +55,19 @@ public class HotDetailShareDialog extends Dialog {
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new BitmapDrawable());
 		getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-		
+
 		setContentView(R.layout.content_hot_detail_share);
 
 		mBtnPublish = (Button) findViewById(R.id.ps_btHot_Share_Publish);
+		mBtnPublish.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				publishPost();
+			}
+		});
 		inactivePublish();
-		
+
 		mSwSocialFacebook = (Switch) findViewById(R.id.ps_swSetting_Social_Facebook);
 		mSwSocialTwitter = (Switch) findViewById(R.id.ps_swSetting_Social_Twitter);
 		mTvSocialAddFacebook = (TextView) findViewById(R.id.ps_tvSetting_Social_AddFacebook);
@@ -107,6 +124,29 @@ public class HotDetailShareDialog extends Dialog {
 		mTvCharacterCount.setText(String.valueOf(mCharacterCount));
 
 		prepareSocialData();
+	}
+
+	protected void publishPost() {
+		mShareFacebookComplete = false;
+		mShareTwitterComplete = false;
+		mShareMessage.delete(0, mShareMessage.length());
+		String message = mEdtComment.getText().toString();
+		if (mSwSocialFacebook.isChecked()) {
+			Bundle bundle = new Bundle();
+			bundle.putInt(FacebookManager.EXTRA_FACEBOOK_ACTION,
+					FacebookManager.FACEBOOK_ACTION_POST);
+			bundle.putString(FacebookManager.EXTRA_FACEBOOK_MESSAGE, message);
+			new FacebookManager(mContext, mFragment.getLoaderManager(),
+					mSocialListener).share(bundle);
+		}
+		if (mSwSocialTwitter.isChecked()) {
+			Bundle bundle = new Bundle();
+			bundle.putInt(Twitter.EXTRA_TWITTER_ACTION,
+					Twitter.TWITTER_ACTION_POST);
+			bundle.putString(Twitter.EXTRA_TWITTER_MESSAGE, message);
+			new TwitterManager(mContext, mFragment.getLoaderManager(),
+					mSocialListener).share(bundle);
+		}
 	}
 
 	protected void activePublish() {
@@ -248,6 +288,66 @@ public class HotDetailShareDialog extends Dialog {
 					mSwSocialTwitter.setVisibility(View.INVISIBLE);
 					break;
 				}
+			}
+		}
+
+		@Override
+		public void onShare(int type, int action, boolean success) {
+			switch (type) {
+			case SOCIAL_FACEBOOK:
+				mShareFacebookComplete = true;
+				if (mShareMessage.length() > 0) {
+					mShareMessage.append(",");
+				}
+				if (success) {
+					mShareMessage
+							.append(mContext
+									.getString(R.string.content_hot_share_facebook_success));
+				} else {
+					mShareMessage
+							.append(mContext
+									.getString(R.string.content_hot_share_facebook_unsuccess));
+				}
+				break;
+			case SOCIAL_TWITTER:
+				mShareTwitterComplete = true;
+				if (mShareMessage.length() > 0) {
+					mShareMessage.append(",");
+				}
+				if (success) {
+					mShareMessage
+							.append(mContext
+									.getString(R.string.content_hot_share_twitter_success));
+				} else {
+					mShareMessage
+							.append(mContext
+									.getString(R.string.content_hot_share_twitter_unsuccess));
+				}
+				break;
+			}
+			boolean showAlert = false;
+			if (mShareFacebookComplete && mSwSocialFacebook.isChecked()
+					&& mShareTwitterComplete && mSwSocialTwitter.isChecked()) {
+				showAlert = true;
+			} else if (!mSwSocialFacebook.isChecked()
+					&& mSwSocialTwitter.isChecked() && mShareTwitterComplete) {
+				showAlert = true;
+			} else if (mShareFacebookComplete && mSwSocialFacebook.isChecked()
+					&& !mSwSocialTwitter.isChecked()) {
+				showAlert = true;
+			}
+			if (showAlert) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+				alert.setTitle("Share");
+				alert.setMessage(mShareMessage.toString());
+				alert.setPositiveButton("Ok", new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				alert.show();
 			}
 		}
 	};

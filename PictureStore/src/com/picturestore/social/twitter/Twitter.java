@@ -40,7 +40,6 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 	public static final String PROFILE_NAME = "twitter_name";
 
 	private static final Uri CALLBACKURI = Uri.parse("ghc://twitt");
-	private static final String TWITTER_LOGIN_SUCCESS_INTENT = "twitter_login_success";
 
 	// Share
 	public static final String EXTRA_TWITTER_ACTION = "action";
@@ -48,21 +47,15 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 	public static final String EXTRA_TWITTER_MESSAGE = "message";
 	public static final String EXTRA_TWITTER_TWEET_ID = "tweetId";
 
-	private static final String TWITTER_SHARE_SUCCESS_INTENT = "twitter_share_success";
-
 	private static final int TWITTER_NETWORK_SUCCESS = 100;
 	private static final int TWITTER_NETWORK_FAILURE = 101;
 
-	private static final int TWITTER_ACTION_REPLY = 1;
-	private static final int TWITTER_ACTION_RETWEET = 2;
-	private static final int TWITTER_ACTION_FAVORITE = 3;
+	public static final int TWITTER_ACTION_POST = 1;
 
 	// TimeStamp of request
 	public static String mTimestamp;
 
 	private int mAction = 0;
-	private String mTagId = null;
-	private String mBuzzId = null;
 	private String mUserName = null;
 	private String mMessage = null;
 	private String mTweetId = null;
@@ -79,7 +72,7 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 	private final SocialListener mSocialListener;
 	private ProgressDialog mProgressDialog;
 	private boolean mIsTryGetTime = false;
-	private int mPreviousAction = 0;
+	private int mPreviousAction = -1;
 	private Bundle mPreviousBundle = null;
 
 	public Twitter(Context context, LoaderManager loaderManager,
@@ -95,7 +88,7 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 		mContext = context;
 		mLoaderManager = loaderManager;
 		mSocialListener = listener;
-		
+
 		if (mTimestamp == null) {
 			mTimestamp = String.valueOf(System.currentTimeMillis() / 1000);
 		}
@@ -108,14 +101,17 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 	}
 
 	public void share(Bundle bundle) {
-		initTwitterUserTokenAndSecret();
-
 		initDataFromExtras(bundle);
-
+		initTwitterUserTokenAndSecret();
 		doAction();
 	}
 
 	private void doAction() {
+		showProgress();
+		if (mAction == TWITTER_ACTION_POST) {
+			mLoaderManager.restartLoader(R.id.loader_social_twitter_post, null,
+					this);
+		}
 	}
 
 	private TwitterDialogListener mDialogListener = new TwitterDialogListener() {
@@ -193,8 +189,10 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 					args != null ? args.getString("verifier", "") : "");
 			break;
 		case R.id.loader_social_get_twitter_username:
-			loader = SocialLoader.getTwitterUserInfo(mContext,
-					mConsumer);
+			loader = SocialLoader.getTwitterUserInfo(mContext, mConsumer);
+			break;
+		case R.id.loader_social_twitter_post:
+			loader = SocialLoader.postOnTwitter(mContext, mConsumer, mMessage);
 			break;
 		case R.id.loader_social_twitter_time:
 			loader = SocialLoader.retrieveTwitterTime(mContext);
@@ -238,7 +236,7 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 					TwitterDialog.getInstance(mContext, mDialogListener)
 							.showLogin(authUrl);
 				}
-			} else if (result.getFailureReason() != null) {
+			} else if (result.getFailureReason() != null && DEBUG) {
 				result.getFailureReason().printStackTrace();
 			}
 
@@ -260,7 +258,7 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 
 				mLoaderManager.restartLoader(
 						R.id.loader_social_get_twitter_username, null, this);
-			} else if (result.getFailureReason() != null) {
+			} else if (result.getFailureReason() != null && DEBUG) {
 				result.getFailureReason().printStackTrace();
 				hideProgress();
 			}
@@ -279,12 +277,55 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-			} else if (result.getFailureReason() != null) {
+			} else if (result.getFailureReason() != null && DEBUG) {
 				result.getFailureReason().printStackTrace();
 			}
 			hideProgress();
 			mLoaderManager
 					.destroyLoader(R.id.loader_social_get_twitter_username);
+			break;
+		case R.id.loader_social_twitter_post:
+			int status = 0;
+			String[] error = null;
+			String errorMessage = null;
+			JSONObject json = result.getData();
+			if (result.isSuccessful()) {
+				if (json != null) {
+					error = getTwitterError(json);
+					if (error == null) {
+						status = TWITTER_NETWORK_SUCCESS;
+					} else {
+						errorMessage = error[0] + "-" + error[1];
+						status = TWITTER_NETWORK_FAILURE;
+						// Code = 135 -> TimeStamp out of bounds
+						if (error[1].equalsIgnoreCase("135") && !mIsTryGetTime) {
+							mIsTryGetTime = true;
+							// Try to get twitter time
+							if (DEBUG) {
+								Log.d(TAG, "Try to get twitter time.");
+							}
+							showProgress();
+							// Store previous action
+							mPreviousAction = loader.getId();
+							mLoaderManager
+									.restartLoader(
+											R.id.loader_social_twitter_time,
+											null, this);
+							return;
+						}
+					}
+				}
+			} else {
+				if (DEBUG && json != null) {
+					Log.d(TAG, json.toString());
+				}
+				status = TWITTER_NETWORK_FAILURE;
+				errorMessage = result.getFailureReason() != null ? result
+						.getFailureReason().getMessage() : "";
+			}
+			sendShareMessage(TWITTER_ACTION_POST, status, errorMessage);
+			mLoaderManager.destroyLoader(R.id.loader_social_twitter_post);
+			hideProgress();
 			break;
 		case R.id.loader_social_twitter_time:
 			if (result.isSuccessful()) {
@@ -297,7 +338,7 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 				} else if (DEBUG) {
 					Log.d(TAG, "Fail to get twitter time!");
 				}
-			} else if (result.getFailureReason() != null) {
+			} else if (result.getFailureReason() != null && DEBUG) {
 				result.getFailureReason().printStackTrace();
 			}
 			mLoaderManager.destroyLoader(R.id.loader_social_twitter_time);
@@ -317,7 +358,10 @@ public class Twitter implements LoaderManager.LoaderCallbacks<LoaderResult> {
 	}
 
 	private void sendShareMessage(int action, int status, String message) {
-
+		if (mSocialListener != null) {
+			mSocialListener.onShare(SocialListener.SOCIAL_TWITTER, action,
+					status == TWITTER_NETWORK_SUCCESS ? true : false);
+		}
 	}
 
 	private void retrieveAccessToken(Uri uri) {

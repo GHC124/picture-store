@@ -143,6 +143,11 @@ public class SettingSocialManager {
 				}
 			}
 		}
+
+		@Override
+		public void onShare(int type, int action, boolean success) {
+			
+		}
 	};
 
 	private void prepareSocialData() {

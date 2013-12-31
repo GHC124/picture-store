@@ -46,5 +46,8 @@
     <string name="content_hot_share_dialog_hint">Type your comment here&#8230;</string>
     <string name="content_hot_share_dialog_textcount_over_all">You\'ve reached Twitter\'s character limit. To add more characters, you will need to turn Twitter off</string>
 	<string name="content_hot_share_dialog_textcount_over_twitter">You\'ve reached Twitter\'s character limit</string>
-
+	<string name="content_hot_share_twitter_success">Share Twitter success</string>
+	<string name="content_hot_share_facebook_success">Share Facebook success</string>
+	<string name="content_hot_share_twitter_unsuccess">Share Twitter unsuccess</string>
+	<string name="content_hot_share_facebook_unsuccess">Share Facebook unsuccess</string>
 </resources>

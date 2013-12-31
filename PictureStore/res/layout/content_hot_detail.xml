@@ -42,7 +42,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/ps_tvHot_Detail_Download"
             android:paddingRight="5dp"
-            android:text="@string/content_hot_detail_favorite" />
+            android:text="@string/content_hot_detail_favorite"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/ps_tvHot_Detail_Close"
