@@ -3,6 +3,8 @@ package com.picturestore.content.hot;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 	private int mResourceId;
 	private int mLayoutSize;
 	private boolean mInflatView;
+	private Bitmap mDefaultCoverBitmap;
 
 	public HotDataAdapter(Context context, Fragment fragment, int resourceId) {
 		super(context, resourceId);
@@ -31,8 +34,10 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 		mResourceId = resourceId;
 		mLayoutSize = (int) context.getResources().getDimension(
 				R.dimen.ps_dimen_width_14);
-		;
 		mInflatView = true;
+		
+		mDefaultCoverBitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                R.drawable.ps_default);
 	}
 
 	@Override

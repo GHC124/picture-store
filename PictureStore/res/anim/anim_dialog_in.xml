@@ -13,13 +13,13 @@
         android:toXScale="1.0"
         android:toYScale="1.0" />
 
-    <rotate
+   <!--  <rotate
         android:duration="1000"
         android:fromDegrees="0"
         android:interpolator="@android:anim/linear_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:toDegrees="358" />
+        android:toDegrees="358" /> -->
 
     <translate
         android:duration="1000"

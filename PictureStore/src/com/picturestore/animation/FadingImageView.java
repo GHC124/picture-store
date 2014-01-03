@@ -26,9 +26,10 @@ public class FadingImageView extends NetworkImageView {
 
 	{
 		mFadeInAnimation = new AlphaAnimation(0.0f,  1.0f);
-		mFadeInAnimation.setDuration(1000);
+		mFadeInAnimation.setDuration(500);
+		mFadeInAnimation.setStartOffset(500);
 		mFadeOutAnimation = new AlphaAnimation(1.0f,  0.0f);
-		mFadeOutAnimation.setDuration(1000);
+		mFadeOutAnimation.setDuration(500);
 	}
 
 	@Override
