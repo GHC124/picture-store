@@ -12,7 +12,6 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
@@ -156,39 +155,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 	}
 
 	private void measureChild(View child) {
-		final LayoutParams params = child.getLayoutParams();
-		int measuredWidth;
-		switch (params.width) {
-		case ViewGroup.LayoutParams.MATCH_PARENT:
-			measuredWidth = MeasureSpec.makeMeasureSpec(getWidth(),
-					MeasureSpec.EXACTLY);
-			break;
-		case ViewGroup.LayoutParams.WRAP_CONTENT:
-			measuredWidth = MeasureSpec.makeMeasureSpec(params.width,
-					MeasureSpec.UNSPECIFIED);
-			break;
-		default:
-			measuredWidth = MeasureSpec.makeMeasureSpec(params.width,
-					MeasureSpec.AT_MOST);
-			break;
-		}
-		int measuredHeight;
-		switch (params.height) {
-
-		case ViewGroup.LayoutParams.MATCH_PARENT:
-			measuredHeight = MeasureSpec.makeMeasureSpec(getHeight(),
-					MeasureSpec.EXACTLY);
-			break;
-		case ViewGroup.LayoutParams.WRAP_CONTENT:
-			measuredHeight = MeasureSpec.makeMeasureSpec(params.height,
-					MeasureSpec.UNSPECIFIED);
-			break;
-		default:
-			measuredHeight = MeasureSpec.makeMeasureSpec(params.height,
-					MeasureSpec.AT_MOST);
-			break;
-		}
-		child.measure(measuredWidth, measuredHeight);
+		ViewUtils.MesureView(child, this);
 	}
 
 	private void addAndMeasureChild(final View child, int viewPos) {

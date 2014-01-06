@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
+    android:layout_width="@dimen/ps_dimen_width_62"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
@@ -8,17 +8,35 @@
         android:id="@+id/ps_rlMenuItem_Setting"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/ps_dimen_height_3"
-        android:layout_margin="5dp"
-        android:minWidth="@dimen/ps_dimen_width_11"
-        >
+        android:layout_marginBottom="5dp"
+        android:background="#5daaa0" >
 
         <TextView
             style="@style/font_bold_black12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:singleLine="true"
             android:text="@string/menu_setting" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/ps_rlMenuItem_Other"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/ps_dimen_height_3"
+        android:layout_marginBottom="5dp"
+        android:background="#5daaa0" 
+        android:visibility="invisible">
+
+        <TextView
+            style="@style/font_bold_black12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:text="Other" />
+    </RelativeLayout>
+    
 </LinearLayout>

@@ -9,13 +9,17 @@
     <dimen name="ps_dimen_width_5">25dp</dimen>
 	<dimen name="ps_dimen_width_8">34dp</dimen>
 	<dimen name="ps_dimen_width_11">52dp</dimen>
-	<dimen name="ps_dimen_width_14">70dp</dimen>
+	<dimen name="ps_dimen_width_13p5">64dp</dimen>
+	<dimen name="ps_dimen_width_14">67dp</dimen>
 	<dimen name="ps_dimen_width_62">300dp</dimen>
+	<dimen name="ps_dimen_width_72">350dp</dimen>
 	
 	<!-- HEIGHT -->
 	<dimen name="ps_dimen_height_2">10dp</dimen>
 	<dimen name="ps_dimen_height_3">25dp</dimen>
-	<dimen name="ps_dimen_height_8">70dp</dimen>
+	<dimen name="ps_dimen_height_6">48dp</dimen>
+	<dimen name="ps_dimen_height_7">56dp</dimen>
+	<dimen name="ps_dimen_height_8">64dp</dimen>
 	<dimen name="ps_dimen_height_13">104dp</dimen>
 	
 </resources>

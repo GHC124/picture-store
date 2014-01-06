@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/ps_bg" >
 
     <FrameLayout
         android:id="@+id/ps_flMain_Content"
@@ -19,14 +20,14 @@
         android:layout_height="@dimen/ps_dimen_height_8"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:background="@drawable/ps_bg_navigation">
 
         <RelativeLayout
             android:id="@+id/ps_rlMenuItem_Hot"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:background="@drawable/menu_item_border"
             android:minWidth="@dimen/ps_dimen_width_14"
             android:onClick="onMenuItemClick" >
 
@@ -36,7 +37,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:singleLine="true"
-                android:text="@string/menu_hot" />
+                android:text="@string/menu_hot" 
+                android:tag="menuItem_text"
+                />
         </RelativeLayout>
 
         <RelativeLayout
@@ -53,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:singleLine="true"
-                android:text="@string/menu_idol" />
+                android:text="@string/menu_idol" 
+                android:tag="menuItem_text"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -70,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:singleLine="true"
-                android:text="@string/menu_galary" />
+                android:text="@string/menu_galary"
+                android:tag="menuItem_text" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,8 +92,16 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:singleLine="true"
-                android:text="@string/menu_more" />
+                android:text="@string/menu_more" 
+                android:tag="menuItem_text"/>
         </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout android:id="@+id/ps_rlMenuItem_SelectBox"
+        android:layout_width="@dimen/ps_dimen_width_14"
+        android:layout_height="@dimen/ps_dimen_height_6"
+        android:background="@drawable/menu_item_border"
+        android:visibility="invisible" >
+    </RelativeLayout>
 
 </RelativeLayout>

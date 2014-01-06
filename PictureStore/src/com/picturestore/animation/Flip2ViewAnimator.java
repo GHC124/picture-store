@@ -1,11 +1,12 @@
 package com.picturestore.animation;
 
 import android.view.View;
+import android.view.animation.Animation;
 
 public class Flip2ViewAnimator extends FlipAnimator {
-	private View fromView;
-	private View toView;
-	private boolean visibilitySwapped;
+	private View mFromView;
+	private View mToView;
+	private boolean mVisibilitySwapped;
 
 	/**
 	 * Creates a 3D flip animation between two views. If forward is true, its
@@ -26,27 +27,48 @@ public class Flip2ViewAnimator extends FlipAnimator {
 	 */
 	public Flip2ViewAnimator(View fromView, View toView, int centerX,
 			int centerY) {
-		super(centerX, centerY);
+		super();
 
-		this.fromView = fromView;
-		this.toView = toView;
+		mFromView = fromView;
+		mToView = toView;
+
+		setFlipAnimationListener(new FlipAnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onReachMidPoint() {
+				if (!mVisibilitySwapped) {
+					mFromView.setVisibility(View.GONE);
+					mToView.setVisibility(View.VISIBLE);
+					mVisibilitySwapped = true;
+				}
+			}
+		});
 	}
 
 	@Override
 	public void reverse() {
 		super.reverse();
 
-		View temp = toView;
-		toView = fromView;
-		fromView = temp;
-	}
-
-	@Override
-	public void reachMidPoint() {
-		if (!visibilitySwapped) {
-			fromView.setVisibility(View.GONE);
-			toView.setVisibility(View.VISIBLE);
-			visibilitySwapped = true;
-		}
+		View temp = mToView;
+		mToView = mFromView;
+		mFromView = temp;
 	}
 }

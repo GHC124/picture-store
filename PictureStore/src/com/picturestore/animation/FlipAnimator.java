@@ -7,71 +7,87 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 public class FlipAnimator extends Animation {
-	protected Camera camera;
-    protected float centerX;
-    protected float centerY;
-    protected boolean forward = true;
+	protected Camera mCamera;
+	protected float mCenterX;
+	protected float mCenterY;
+	protected boolean mForward = true;
+	protected boolean mReachMidPoint = false;
+	protected FlipAnimationListener mAnimationListener;
 
-    /**
-     * Creates a 3D flip animation.
-     * 
-     * @param centerX The center of the views in the x-axis.
-     * @param centerY The center of the views in the y-axis.
-     * @param forward The direction of the animation.
-     */
-    public FlipAnimator(int centerX, int centerY) {
-        this.centerX = centerX;
-        this.centerY = centerY;
+	/**
+	 * Creates a 3D flip animation
+	 */
+	public FlipAnimator() {
+		setDuration(1000);
+		setFillAfter(false);
+		setInterpolator(new AccelerateDecelerateInterpolator());
+	}
 
-        setDuration(1000);
-        setFillAfter(true);
-        setInterpolator(new AccelerateDecelerateInterpolator());
-    }
+	public void setCenter(int centerX, int centerY) {
+		mCenterX = centerX;
+		mCenterY = centerY;
+	}
 
-    public void reverse() {
-        forward = false;
-    }
+	public void setFlipAnimationListener(FlipAnimationListener animationListener) {
+		setAnimationListener(animationListener);
+		mAnimationListener = animationListener;
+	}
 
-    @Override
-    public void initialize(int width, int height, int parentWidth, int parentHeight) {
-        super.initialize(width, height, parentWidth, parentHeight);
-        camera = new Camera();
-    }
+	public void restore() {
+		mForward = true;
+		mReachMidPoint = false;
+	}
 
-    @Override
-    protected void applyTransformation(float interpolatedTime, Transformation t) {
-        // Angle around the y-axis of the rotation at the given time. It is
-        // calculated both in radians and in the equivalent degrees.
-        final double radians = Math.PI * interpolatedTime;
-        float degrees = (float) (180.0 * radians / Math.PI);
+	public void reverse() {
+		mForward = false;
+	}
 
-        // Once we reach the midpoint in the animation, we need to hide the
-        // source view and show the destination view. We also need to change
-        // the angle by 180 degrees so that the destination does not come in
-        // flipped around. This is the main problem with SDK sample, it does not
-        // do this.
-        if (interpolatedTime >= 0.5f) {
-            degrees -= 180.f;
-            reachMidPoint();
-        }
+	public boolean isReachMidPoint() {
+		return mReachMidPoint;
+	}
 
-        if (forward){
-            degrees = -degrees;
-        }
-        
-        final Matrix matrix = t.getMatrix();
+	@Override
+	public void initialize(int width, int height, int parentWidth,
+			int parentHeight) {
+		super.initialize(width, height, parentWidth, parentHeight);
+		mCenterX = width / 2;
+		mCenterY = height / 2;
+		mCamera = new Camera();
+	}
 
-        camera.save();
-        camera.translate(0.0f, 0.0f, (float) (150.0 * Math.sin(radians)));
-        camera.rotateY(degrees);
-        camera.getMatrix(matrix);
-        camera.restore();
+	@Override
+	protected void applyTransformation(float interpolatedTime, Transformation t) {
+		// Angle around the y-axis of the rotation at the given time. It is
+		// calculated both in radians and in the equivalent degrees.
+		final double radians = Math.PI * interpolatedTime;
+		float degrees = (float) (180.0 * radians / Math.PI);
 
-        matrix.preTranslate(-centerX, -centerY);
-        matrix.postTranslate(centerX, centerY);
-    }
-    
-    public void reachMidPoint(){
-    	// Do nothing
-    }
+		// Once we reach the midpoint in the animation, we need to hide the
+		// source view and show the destination view. We also need to change
+		// the angle by 180 degrees so that the destination does not come in
+		// flipped around
+		if (interpolatedTime >= 0.5f) {
+			degrees -= 180.0f;
+			if (!mReachMidPoint) {
+				if (mAnimationListener != null) {
+					mAnimationListener.onReachMidPoint();
+				}
+				mReachMidPoint = true;
+			}
+		}
+
+		if (mForward) {
+			degrees = -degrees;
+		}
+
+		final Matrix matrix = t.getMatrix();
+		mCamera.save();
+		mCamera.translate(0.0f, 0.0f, (float) (210.0 * Math.sin(radians)));
+		mCamera.rotateY(degrees);
+		mCamera.getMatrix(matrix);
+		mCamera.restore();
+
+		matrix.preTranslate(-mCenterX, -mCenterY);
+		matrix.postTranslate(mCenterX, mCenterY);
+	}
 }

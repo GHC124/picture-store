@@ -5,7 +5,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/ps_dimen_height_3"
+    android:paddingBottom="@dimen/ps_dimen_height_2"
     android:paddingLeft="@dimen/ps_dimen_height_2"
     android:paddingRight="@dimen/ps_dimen_height_2" >
 
@@ -55,37 +55,38 @@
             android:text="@string/display_x" />
     </RelativeLayout>
 
-    <RelativeLayout android:id="@+id/ps_rlHot_Detail_Item"
+    <RelativeLayout
+        android:id="@+id/ps_rlHot_Detail_Item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/layout_border_corner"
-        >
+        android:background="@drawable/layout_border_corner" >
 
-        <com.picturestore.content.hot.animation.HotImageView
+        <ImageView
             android:id="@+id/ps_imgHot_Detail_Item1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/display_content_description"
             android:scaleType="fitXY" >
-        </com.picturestore.content.hot.animation.HotImageView>
-        
+        </ImageView>
+
         <TextView
             android:id="@+id/ps_tvHot_Detail_Previous"
             style="@style/font_bold_7FCCCCCC14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:padding="5dp"
-            android:text="@string/display_previous"
-            android:layout_centerVertical="true" />
+            android:text="@string/display_previous" />
+
         <TextView
             android:id="@+id/ps_tvHot_Detail_Next"
             style="@style/font_bold_7FCCCCCC14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:padding="5dp"
-            android:text="@string/display_next"
-            android:layout_centerVertical="true" />
+            android:text="@string/display_next" />
     </RelativeLayout>
 
 </LinearLayout>

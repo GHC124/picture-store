@@ -8,14 +8,20 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.picturestore.animation.AnimationFactory;
 import com.picturestore.common.net.data.MasterData;
 import com.picturestore.common.net.data.parser.MasterDataParser;
 import com.picturestore.common.net.manager.PictureStoreManager;
@@ -37,11 +43,15 @@ public class MainActivity extends BaseActivity {
 	private PopupWindowsManager mPopupWindowsManager;
 	private MasterData mMasterData;
 	private ProgressDialog mProgressDialog;
+	private RelativeLayout mRlSelectBox;
+	private boolean mIsFirst = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		mRlSelectBox = (RelativeLayout) findViewById(R.id.ps_rlMenuItem_SelectBox);
 
 		BaseApplication.getInstance().enableLog();
 		PictureStoreImageDownloader.setImageLoader(BaseApplication
@@ -62,9 +72,8 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void onMenuItemClick(View v) {
-
+		View old = null;
 		if (mCurrentMenu != null) {
-			View old = null;
 			switch (mCurrentMenu) {
 			case HOT:
 				old = findViewById(R.id.ps_rlMenuItem_Hot);
@@ -82,11 +91,8 @@ public class MainActivity extends BaseActivity {
 				old = findViewById(R.id.ps_rlMenuItem_More);
 				break;
 			}
-			if (old != null) {
-				old.setBackground(new BitmapDrawable());
-			}
 		}
-		v.setBackgroundResource(R.drawable.menu_item_border);
+		moveSelectBox(old, v);
 		switch (v.getId()) {
 		case R.id.ps_rlMenuItem_Hot:
 			mCurrentMenu = MenuItem.HOT;
@@ -126,9 +132,10 @@ public class MainActivity extends BaseActivity {
 
 	private void showMoreMenu(View anchor) {
 		mPopupWindowsManager = new PopupWindowsManager(this, anchor);
+		mPopupWindowsManager.setBackgroundDrawable(new BitmapDrawable());
 		mPopupWindowsManager.showWindow(PopupWindowsTypes.MENU_MORE);
-		View layout = mPopupWindowsManager.getContentView();
-		View setting = layout.findViewById(R.id.ps_rlMenuItem_Setting);
+		final View layout = mPopupWindowsManager.getContentView();
+		final View setting = layout.findViewById(R.id.ps_rlMenuItem_Setting);
 		setting.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -137,6 +144,40 @@ public class MainActivity extends BaseActivity {
 				mPopupWindowsManager.closePopupWindow();
 			}
 		});
+		final View other = layout.findViewById(R.id.ps_rlMenuItem_Other);
+		other.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				mPopupWindowsManager.closePopupWindow();
+			}
+		});
+		Animation animation = AnimationUtils.loadAnimation(this,
+				R.anim.anim_dialog_menu_in);
+		animation.setAnimationListener(new Animation.AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				Animation animation1 = AnimationUtils.loadAnimation(
+						MainActivity.this, R.anim.anim_dialog_menu_in);
+				other.setVisibility(View.VISIBLE);
+				other.startAnimation(animation1);
+			}
+		});
+		setting.startAnimation(animation);
 	}
 
 	// Get data from server
@@ -148,7 +189,8 @@ public class MainActivity extends BaseActivity {
 				try {
 					mProgressDialog.dismiss();
 					mMasterData = MasterDataParser.parse(response);
-					onMenuItemClick(findViewById(R.id.ps_rlMenuItem_Hot));
+					View view = findViewById(R.id.ps_rlMenuItem_Hot);
+					onMenuItemClick(view);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				} catch (ParseException e) {
@@ -166,5 +208,56 @@ public class MainActivity extends BaseActivity {
 		PictureStoreManagerFactory.newGetMasterDataManager(
 				Volley.newRequestQueue(this), listener, errorListener)
 				.execute();
+	}
+
+	private void moveSelectBox(final View oldView, final View newView) {
+		int[] fromLocation = new int[2];
+		int[] toLocation = new int[2];
+		if (oldView != null) {
+			oldView.getLocationOnScreen(fromLocation);
+			TextView oldText = (TextView) oldView
+					.findViewWithTag("menuItem_text");
+			if (oldText != null) {
+				oldText.setTextColor(Color.parseColor("#000000"));
+			}
+		}
+		newView.getLocationOnScreen(toLocation);
+		fromLocation[1] = fromLocation[1] - mRlSelectBox.getHeight() - 35;
+		toLocation[1] = toLocation[1] - mRlSelectBox.getHeight() - 35;
+
+		float fromXDelta = fromLocation[0];
+		float toXDelta = toLocation[0];
+		float fromYDelta = fromLocation[1];
+		float toYDelta = toLocation[1];
+
+		Animation animation = AnimationFactory.TranslateAnimation(fromXDelta,
+				toXDelta, fromYDelta, toYDelta, 500,
+				new Animation.AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						TextView newText = (TextView) newView
+								.findViewWithTag("menuItem_text");
+						if (newText != null) {
+							newText.setTextColor(Color.parseColor("#e4e1bd"));
+						}
+						if (mIsFirst) {
+							mIsFirst = false;
+							mRlSelectBox.setVisibility(View.VISIBLE);
+							animation = AnimationFactory.FadeInAnimation(1000,
+									null);
+							mRlSelectBox.startAnimation(animation);
+						}
+					}
+				});
+		mRlSelectBox.startAnimation(animation);
 	}
 }

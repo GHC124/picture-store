@@ -30,7 +30,7 @@ public class PopupWindows {
 		if (mPopupBackground != null) {
 			mPopupWindow.setBackgroundDrawable(mPopupBackground);
 		}
-
+		
 		mPopupWindow.setWidth(LayoutParams.WRAP_CONTENT);
 		mPopupWindow.setHeight(LayoutParams.WRAP_CONTENT);
 
