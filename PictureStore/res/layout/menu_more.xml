@@ -18,11 +18,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:text="@string/menu_setting" />
+            android:text="@string/menu_setting"
+            android:paddingRight="@dimen/ps_dimen_width_2" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/ps_rlMenuItem_Other"
+        android:id="@+id/ps_rlMenuItem_About"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/ps_dimen_height_3"
         android:layout_marginBottom="5dp"
@@ -36,7 +37,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:singleLine="true"
-            android:text="Other" />
+            android:text="@string/menu_about"
+            android:paddingRight="@dimen/ps_dimen_width_2" />
     </RelativeLayout>
     
 </LinearLayout>

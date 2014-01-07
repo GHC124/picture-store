@@ -16,10 +16,12 @@
 	
 	<!-- HEIGHT -->
 	<dimen name="ps_dimen_height_2">10dp</dimen>
+	<dimen name="ps_dimen_height_2p5">20dp</dimen>
 	<dimen name="ps_dimen_height_3">25dp</dimen>
 	<dimen name="ps_dimen_height_6">48dp</dimen>
 	<dimen name="ps_dimen_height_7">56dp</dimen>
 	<dimen name="ps_dimen_height_8">64dp</dimen>
 	<dimen name="ps_dimen_height_13">104dp</dimen>
+	<dimen name="ps_dimen_height_38p7">310dp</dimen>
 	
 </resources>

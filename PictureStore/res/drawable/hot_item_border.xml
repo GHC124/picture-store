@@ -8,6 +8,6 @@
 
     <stroke
         android:width="1dip"
-        android:color="#FFFFFF" />
+        android:color="@color/ps_border" />
 
 </shape>

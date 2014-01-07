@@ -9,13 +9,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -29,16 +29,18 @@ import com.picturestore.common.net.data.MasterData;
 import com.picturestore.common.net.data.parser.HotDetailDataParser;
 import com.picturestore.common.net.manager.PictureStoreManagerFactory;
 import com.picturestore.content.IContentDetailView;
+import com.picturestore.view.EnhancedScrollView;
 import com.picturestore.view.HorizontalListView;
 
 public class HotFragment implements IContentDetailView {
 	private Context mContext;
 	private Fragment mFragment;
+	private EnhancedScrollView mEsv;
 	private HorizontalListView mHlvVietNam;
 	private HorizontalListView mHlvKorea;
 	private HorizontalListView mHlvUSA;
 	private MasterData mMasterData;
-	private ProgressDialog mProgressDialog;
+	private ProgressBar mLoading;
 
 	@Override
 	public View getView(Context context, LayoutInflater inflater,
@@ -48,6 +50,7 @@ public class HotFragment implements IContentDetailView {
 		mMasterData = masterData;
 
 		View layout = inflater.inflate(R.layout.content_hot, null);
+		mEsv = (EnhancedScrollView)layout.findViewById(R.id.ps_esvHot);
 		mHlvVietNam = (HorizontalListView) layout
 				.findViewById(R.id.ps_hlvHot_VietNam);
 		mHlvKorea = (HorizontalListView) layout
@@ -79,16 +82,11 @@ public class HotFragment implements IContentDetailView {
 				onItemDetailClick(mHlvUSA, position);
 			}
 		});
+		mLoading = (ProgressBar) layout.findViewById(R.id.ps_pbHot_Loading);
 
 		if (mMasterData != null) {
-			mProgressDialog = new ProgressDialog(mContext);
-			mProgressDialog.setMessage(mContext
-					.getString(R.string.display_loading));
-			mProgressDialog.show();
-
 			prepareData();
 		}
-		;
 
 		return layout;
 	}
@@ -99,7 +97,8 @@ public class HotFragment implements IContentDetailView {
 
 			@Override
 			public void onResponse(JSONObject response) {
-				mProgressDialog.dismiss();
+				mLoading.setVisibility(View.INVISIBLE);
+				mEsv.setVisibility(View.VISIBLE);
 				try {
 					HotDetailData detailData = HotDetailDataParser
 							.parse(response);
@@ -156,7 +155,7 @@ public class HotFragment implements IContentDetailView {
 					Volley.newRequestQueue(activity), url, listener,
 					errorListener).execute();
 		} else {
-			mProgressDialog.dismiss();
+			mLoading.setVisibility(View.INVISIBLE);
 		}
 	}
 

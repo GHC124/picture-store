@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/ps_dimen_width_62"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:layout_height="@dimen/ps_dimen_height_38p7"
+    android:background="@drawable/ps_bg_dialog"
+    android:orientation="vertical"
+    android:layout_gravity="center" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,7 +12,8 @@
         android:layout_marginBottom="@dimen/ps_dimen_height_2"
         android:layout_marginLeft="@dimen/ps_dimen_width_5"
         android:layout_marginRight="@dimen/ps_dimen_width_5"
-        android:layout_marginTop="@dimen/ps_dimen_height_2" >
+        android:layout_marginTop="@dimen/ps_dimen_height_2"
+        >
 
         <TextView
             style="@style/font_bold_black12"
@@ -34,7 +36,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#CCCCCC" />
+        android:background="@color/ps_border"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +67,7 @@
 
                 <TextView
                     android:id="@+id/ps_tvHot_Share_TextCount"
-                    style="@style/font_normal_CCCCCC12"
+                    style="@style/font_normal_while12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -128,7 +132,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#CCCCCC" />
+                    android:background="@color/ps_border" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"

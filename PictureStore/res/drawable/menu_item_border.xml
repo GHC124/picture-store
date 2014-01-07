@@ -8,6 +8,6 @@
 
     <stroke
         android:width="2dip"
-        android:color="#e4e1bd" />
+        android:color="@color/ps_menu_select" />
 
 </shape>

@@ -82,7 +82,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#CCCCCC" />
+            android:background="@color/ps_border" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

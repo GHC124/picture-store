@@ -29,12 +29,14 @@ public class AnimationFactory {
 		return alphaAnimation;
 	}
 
-	public static Animation TranslateAnimation(float fromXDelta,
-			float toXDelta, float fromYDelta, float toYDelta, long duration,
-			AnimationListener listener) {
+	public static Animation TranslateAnimation(int type, float fromXValue,
+			float toXValue, float fromYValue, float toYValue, long duration,
+			long startOffset, AnimationListener listener) {
 		TranslateAnimation translateAnimation = new TranslateAnimation(
-				fromXDelta, toXDelta, fromYDelta, toYDelta);
+				type, fromXValue, type, toXValue, type, fromYValue,
+				type, toYValue);
 		translateAnimation.setDuration(duration);
+		translateAnimation.setStartOffset(startOffset);
 		if (listener != null) {
 			translateAnimation.setAnimationListener(listener);
 		}

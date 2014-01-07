@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ps_border">#FFFFFF</color>
+    <color name="ps_menu_select">#e4e1bd</color>
+</resources>

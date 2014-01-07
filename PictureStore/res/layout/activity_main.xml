@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@drawable/ps_bg" >
+    android:background="@drawable/ps_bg"
+    tools:context=".MainActivity" >
 
     <FrameLayout
         android:id="@+id/ps_flMain_Content"
@@ -20,8 +20,8 @@
         android:layout_height="@dimen/ps_dimen_height_8"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:orientation="horizontal" 
-        android:background="@drawable/ps_bg_navigation">
+        android:background="@drawable/ps_bg_navigation"
+        android:orientation="horizontal" >
 
         <RelativeLayout
             android:id="@+id/ps_rlMenuItem_Hot"
@@ -31,15 +31,26 @@
             android:minWidth="@dimen/ps_dimen_width_14"
             android:onClick="onMenuItemClick" >
 
+            <ImageView
+                android:id="@+id/ps_imgMenuItem_Hot"
+                android:layout_width="@dimen/ps_dimen_width_5"
+                android:layout_height="@dimen/ps_dimen_height_2p5"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:contentDescription="@string/display_content_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ps_menu_hot" />
+
             <TextView
                 style="@style/font_bold_black12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/ps_imgMenuItem_Hot"
+                android:layout_centerHorizontal="true"
                 android:singleLine="true"
-                android:text="@string/menu_hot" 
                 android:tag="menuItem_text"
-                />
+                android:text="@string/menu_hot" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -50,14 +61,26 @@
             android:minWidth="@dimen/ps_dimen_width_14"
             android:onClick="onMenuItemClick" >
 
+            <ImageView
+                android:id="@+id/ps_imgMenuItem_Idol"
+                android:layout_width="@dimen/ps_dimen_width_5"
+                android:layout_height="@dimen/ps_dimen_height_3"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:contentDescription="@string/display_content_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ps_menu_idol" />
+
             <TextView
                 style="@style/font_bold_black12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/ps_imgMenuItem_Idol"
+                android:layout_centerHorizontal="true"
                 android:singleLine="true"
-                android:text="@string/menu_idol" 
-                android:tag="menuItem_text"/>
+                android:tag="menuItem_text"
+                android:text="@string/menu_idol" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -68,14 +91,26 @@
             android:minWidth="@dimen/ps_dimen_width_14"
             android:onClick="onMenuItemClick" >
 
+            <ImageView
+                android:id="@+id/ps_imgMenuItem_Galary"
+                android:layout_width="@dimen/ps_dimen_width_5"
+                android:layout_height="@dimen/ps_dimen_height_2p5"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:contentDescription="@string/display_content_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ps_menu_galary" />
+
             <TextView
                 style="@style/font_bold_black12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/ps_imgMenuItem_Galary"
+                android:layout_centerHorizontal="true"
                 android:singleLine="true"
-                android:text="@string/menu_galary"
-                android:tag="menuItem_text" />
+                android:tag="menuItem_text"
+                android:text="@string/menu_galary" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -86,18 +121,31 @@
             android:minWidth="@dimen/ps_dimen_width_14"
             android:onClick="onMenuItemClick" >
 
+            <ImageView
+                android:id="@+id/ps_imgMenuItem_More"
+                android:layout_width="@dimen/ps_dimen_width_5"
+                android:layout_height="@dimen/ps_dimen_height_2p5"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:contentDescription="@string/display_content_description"
+                android:scaleType="fitXY"
+                android:src="@drawable/ps_menu_more" />
+
             <TextView
                 style="@style/font_bold_black12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_below="@id/ps_imgMenuItem_More"
+                android:layout_centerHorizontal="true"
                 android:singleLine="true"
-                android:text="@string/menu_more" 
-                android:tag="menuItem_text"/>
+                android:tag="menuItem_text"
+                android:text="@string/menu_more" />
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout android:id="@+id/ps_rlMenuItem_SelectBox"
+    <RelativeLayout
+        android:id="@+id/ps_rlMenuItem_SelectBox"
         android:layout_width="@dimen/ps_dimen_width_14"
         android:layout_height="@dimen/ps_dimen_height_6"
         android:background="@drawable/menu_item_border"

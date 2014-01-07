@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -144,8 +143,8 @@ public class MainActivity extends BaseActivity {
 				mPopupWindowsManager.closePopupWindow();
 			}
 		});
-		final View other = layout.findViewById(R.id.ps_rlMenuItem_Other);
-		other.setOnClickListener(new View.OnClickListener() {
+		final View about = layout.findViewById(R.id.ps_rlMenuItem_About);
+		about.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -153,31 +152,10 @@ public class MainActivity extends BaseActivity {
 				mPopupWindowsManager.closePopupWindow();
 			}
 		});
-		Animation animation = AnimationUtils.loadAnimation(this,
-				R.anim.anim_dialog_menu_in);
-		animation.setAnimationListener(new Animation.AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Animation animation1 = AnimationUtils.loadAnimation(
-						MainActivity.this, R.anim.anim_dialog_menu_in);
-				other.setVisibility(View.VISIBLE);
-				other.startAnimation(animation1);
-			}
-		});
-		setting.startAnimation(animation);
+		setting.startAnimation(AnimationFactory.TranslateAnimation(Animation.RELATIVE_TO_PARENT, -100, 0, 0,
+				0, 1000, 0, null));
+		about.startAnimation(AnimationFactory.TranslateAnimation(Animation.RELATIVE_TO_PARENT, -100, 0, 0, 0,
+				1000, 500, null));
 	}
 
 	// Get data from server
@@ -230,8 +208,8 @@ public class MainActivity extends BaseActivity {
 		float fromYDelta = fromLocation[1];
 		float toYDelta = toLocation[1];
 
-		Animation animation = AnimationFactory.TranslateAnimation(fromXDelta,
-				toXDelta, fromYDelta, toYDelta, 500,
+		Animation animation = AnimationFactory.TranslateAnimation(Animation.ABSOLUTE, fromXDelta,
+				toXDelta, fromYDelta, toYDelta, 500, 0, 
 				new Animation.AnimationListener() {
 
 					@Override

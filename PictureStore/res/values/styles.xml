@@ -44,6 +44,12 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="font_normal_while12">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    
     <style name="font_normal_black14">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">14sp</item>
@@ -74,6 +80,12 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+     <style name="font_bold_while14">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
     <style name="font_bold_while18">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">18sp</item>

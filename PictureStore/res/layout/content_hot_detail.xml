@@ -3,7 +3,7 @@
     android:layout_width="@dimen/ps_dimen_width_62"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@android:color/white"
+    android:background="@drawable/ps_bg_dialog"
     android:orientation="vertical"
     android:paddingBottom="@dimen/ps_dimen_height_2"
     android:paddingLeft="@dimen/ps_dimen_height_2"
@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/ps_dimen_height_2"
-        android:layout_marginTop="@dimen/ps_dimen_height_2" >
+        android:layout_marginTop="@dimen/ps_dimen_height_2" 
+        android:background="@drawable/layout_border_corner"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/ps_tvHot_Detail_Share"
@@ -71,7 +73,7 @@
 
         <TextView
             android:id="@+id/ps_tvHot_Detail_Previous"
-            style="@style/font_bold_7FCCCCCC14"
+            style="@style/font_bold_while14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -80,7 +82,7 @@
 
         <TextView
             android:id="@+id/ps_tvHot_Detail_Next"
-            style="@style/font_bold_7FCCCCCC14"
+            style="@style/font_bold_while14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

@@ -1,59 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.picturestore.view.EnhancedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+    <com.picturestore.view.EnhancedScrollView
+        android:id="@+id/ps_esvHot"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ps_dimen_height_2"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ps_dimen_height_2"
+                android:text="@string/content_hot_vietnam" />
+
+            <com.picturestore.view.HorizontalListView
+                android:id="@+id/ps_hlvHot_VietNam"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_8"
+                android:layout_marginLeft="@dimen/ps_dimen_width_2"
+                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+            </com.picturestore.view.HorizontalListView>
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ps_dimen_height_2"
+                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:text="@string/content_hot_korea" />
+
+            <com.picturestore.view.HorizontalListView
+                android:id="@+id/ps_hlvHot_Korea"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_8"
+                android:layout_marginLeft="@dimen/ps_dimen_width_2"
+                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+            </com.picturestore.view.HorizontalListView>
+
+            <TextView
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ps_dimen_height_2"
+                android:text="@string/content_hot_usa" />
+
+            <com.picturestore.view.HorizontalListView
+                android:id="@+id/ps_hlvHot_USA"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ps_dimen_height_8"
+                android:layout_marginLeft="@dimen/ps_dimen_width_2"
+                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+            </com.picturestore.view.HorizontalListView>
+        </LinearLayout>
+    </com.picturestore.view.EnhancedScrollView>
+    <ProgressBar android:id="@+id/ps_pbHot_Loading"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/ps_dimen_height_2"
-        android:orientation="vertical" >
-
-        <TextView
-            style="@style/font_bold_black12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ps_dimen_height_2"
-            android:text="@string/content_hot_vietnam" />
-
-        <com.picturestore.view.HorizontalListView
-            android:id="@+id/ps_hlvHot_VietNam"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ps_dimen_height_8"
-            android:layout_marginLeft="@dimen/ps_dimen_width_2"
-            android:layout_marginRight="@dimen/ps_dimen_width_2" >
-        </com.picturestore.view.HorizontalListView>
-        
-        <TextView
-            style="@style/font_bold_black12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ps_dimen_height_2"
-            android:layout_marginBottom="@dimen/ps_dimen_height_2"
-            android:text="@string/content_hot_korea" />
-
-        <com.picturestore.view.HorizontalListView
-            android:id="@+id/ps_hlvHot_Korea"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ps_dimen_height_8"
-            android:layout_marginLeft="@dimen/ps_dimen_width_2"
-            android:layout_marginRight="@dimen/ps_dimen_width_2" >
-        </com.picturestore.view.HorizontalListView>
-        
-        <TextView
-            style="@style/font_bold_black12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ps_dimen_height_2"
-            android:text="@string/content_hot_usa" />
-
-        <com.picturestore.view.HorizontalListView
-            android:id="@+id/ps_hlvHot_USA"
-            android:layout_width="match_parent"
-           	android:layout_height="@dimen/ps_dimen_height_8"
-            android:layout_marginLeft="@dimen/ps_dimen_width_2"
-            android:layout_marginRight="@dimen/ps_dimen_width_2" >
-        </com.picturestore.view.HorizontalListView>
-    </LinearLayout>
-
-</com.picturestore.view.EnhancedScrollView>
+        android:layout_centerInParent="true"/>
+</RelativeLayout>
