@@ -26,8 +26,8 @@
                 android:id="@+id/ps_hlvHot_VietNam"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ps_dimen_height_8"
-                android:layout_marginLeft="@dimen/ps_dimen_width_2"
-                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" >
             </com.picturestore.view.HorizontalListView>
 
             <TextView
@@ -42,8 +42,8 @@
                 android:id="@+id/ps_hlvHot_Korea"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ps_dimen_height_8"
-                android:layout_marginLeft="@dimen/ps_dimen_width_2"
-                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" >
             </com.picturestore.view.HorizontalListView>
 
             <TextView
@@ -57,8 +57,8 @@
                 android:id="@+id/ps_hlvHot_USA"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ps_dimen_height_8"
-                android:layout_marginLeft="@dimen/ps_dimen_width_2"
-                android:layout_marginRight="@dimen/ps_dimen_width_2" >
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" >
             </com.picturestore.view.HorizontalListView>
         </LinearLayout>
     </com.picturestore.view.EnhancedScrollView>

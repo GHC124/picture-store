@@ -63,7 +63,7 @@ public class HotDetailDialog extends Dialog {
 			@Override
 			public void onClick(View v) {
 				HotDetailShareDialog shareDialog = new HotDetailShareDialog(
-						mContext, mFragment);
+						mContext, mFragment, mListData.get(mCurrentPosition));
 				shareDialog.show();
 			}
 		});
@@ -88,8 +88,8 @@ public class HotDetailDialog extends Dialog {
 			}
 		});
 
-		mPrevious = findViewById(R.id.ps_tvHot_Detail_Previous);
-		mNext = findViewById(R.id.ps_tvHot_Detail_Next);
+		mPrevious = findViewById(R.id.ps_imgHot_Detail_Previous);
+		mNext = findViewById(R.id.ps_imgHot_Detail_Next);
 		mPrevious.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -105,7 +105,7 @@ public class HotDetailDialog extends Dialog {
 			}
 		});
 
-		final View close = findViewById(R.id.ps_tvHot_Detail_Close);
+		final View close = findViewById(R.id.ps_imgHot_Detail_Close);
 		close.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -114,10 +114,9 @@ public class HotDetailDialog extends Dialog {
 			}
 		});
 
-		mFadeOutAnim = AnimationFactory
-				.FadeOutAnimation(500, mFadeOutListener);
+		mFadeOutAnim = AnimationFactory.FadeOutAnimation(500, mFadeOutListener);
 		mFadeInAnim = AnimationFactory.FadeInAnimation(500, null);
-		
+
 		mFlipAnimator = new FlipAnimator();
 		mFlipAnimator.setDuration(1000);
 		mFlipAnimator.setFlipAnimationListener(mAnimationListener);
@@ -151,9 +150,9 @@ public class HotDetailDialog extends Dialog {
 			}
 			mIsSetBitmap = false;
 			mBitmap = null;
-			
-			mFlipAnimator.restore();	
-			
+
+			mFlipAnimator.restore();
+
 			PictureStoreImageDownloader.download(mListData
 					.get(mCurrentPosition).getImage(), mImageListener);
 
@@ -178,11 +177,11 @@ public class HotDetailDialog extends Dialog {
 				}
 			}
 			mIsSetBitmap = false;
-			mBitmap = null;			
-			
+			mBitmap = null;
+
 			mFlipAnimator.restore();
 			mFlipAnimator.reverse();
-			
+
 			PictureStoreImageDownloader.download(mListData
 					.get(mCurrentPosition).getImage(), mImageListener);
 

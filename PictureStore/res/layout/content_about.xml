@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/ps_dimen_width_62"
+    android:layout_height="@dimen/ps_dimen_height_22"
+    android:layout_gravity="center"
+    android:background="@drawable/ps_bg_dialog"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ps_dimen_height_2"
+        android:layout_marginLeft="@dimen/ps_dimen_width_5"
+        android:layout_marginRight="@dimen/ps_dimen_width_5"
+        android:layout_marginTop="@dimen/ps_dimen_height_2" >
+
+        <TextView
+            style="@style/font_bold_black14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/content_about" />
+
+        <ImageView
+            android:id="@+id/ps_imgAbout_Close"
+            android:layout_width="@dimen/ps_dimen_width_3"
+            android:layout_height="@dimen/ps_dimen_height_1p8"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_button_close"
+            android:contentDescription="@string/display_x" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@color/ps_border" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/ps_dimen_width_5"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/font_normal_black12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/content_about_version" />
+        <TextView
+            style="@style/font_normal_black12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/content_about_author" />
+        <TextView
+            style="@style/font_normal_black12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/content_about_email" />
+    </LinearLayout>
+
+</LinearLayout>

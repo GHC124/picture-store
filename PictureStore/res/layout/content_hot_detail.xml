@@ -4,64 +4,86 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:background="@drawable/ps_bg_dialog"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/ps_dimen_height_2"
-    android:paddingLeft="@dimen/ps_dimen_height_2"
-    android:paddingRight="@dimen/ps_dimen_height_2" >
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/ps_dimen_height_2"
-        android:layout_marginTop="@dimen/ps_dimen_height_2" 
-        android:background="@drawable/layout_border_corner"
-        android:padding="5dp">
+        android:layout_marginLeft="@dimen/ps_dimen_width_5"
+        android:layout_marginRight="@dimen/ps_dimen_width_5"
+        android:layout_marginTop="@dimen/ps_dimen_height_2" >
 
         <TextView
-            android:id="@+id/ps_tvHot_Detail_Share"
-            style="@style/font_bold_black12"
+            style="@style/font_bold_black14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingRight="5dp"
-            android:text="@string/content_hot_detail_share" />
+            android:text="@string/content_hot_detail" />
 
-        <TextView
-            android:id="@+id/ps_tvHot_Detail_Download"
-            style="@style/font_bold_black12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/ps_tvHot_Detail_Share"
-            android:paddingRight="5dp"
-            android:text="@string/content_hot_detail_download" />
-
-        <TextView
-            android:id="@+id/ps_tvHot_Detail_Favorite"
-            style="@style/font_bold_black12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/ps_tvHot_Detail_Download"
-            android:paddingRight="5dp"
-            android:text="@string/content_hot_detail_favorite"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/ps_tvHot_Detail_Close"
-            style="@style/font_bold_CCCCCC14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView android:id="@+id/ps_imgHot_Detail_Close"
+            android:layout_width="@dimen/ps_dimen_width_3"
+            android:layout_height="@dimen/ps_dimen_height_1p8"
+            android:background="@drawable/selector_button_close"
             android:layout_alignParentRight="true"
-            android:padding="5dp"
-            android:text="@string/display_x" />
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/display_x"/>          
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@color/ps_border" />
 
     <RelativeLayout
         android:id="@+id/ps_rlHot_Detail_Item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/layout_border_corner" >
+        android:layout_marginTop="5dp"
+        android:background="@drawable/layout_border_corner"
+        android:layout_marginBottom="@dimen/ps_dimen_height_2"
+        android:layout_marginLeft="@dimen/ps_dimen_height_2"
+        android:layout_marginRight="@dimen/ps_dimen_height_2" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/ps_tvHot_Detail_Share"
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="5dp"
+                android:text="@string/content_hot_detail_share" />
+
+            <TextView
+                android:id="@+id/ps_tvHot_Detail_Download"
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ps_tvHot_Detail_Share"
+                android:paddingRight="5dp"
+                android:text="@string/content_hot_detail_download" />
+
+            <TextView
+                android:id="@+id/ps_tvHot_Detail_Favorite"
+                style="@style/font_bold_black12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/ps_tvHot_Detail_Download"
+                android:paddingRight="5dp"
+                android:text="@string/content_hot_detail_favorite"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/ps_imgHot_Detail_Item1"
@@ -71,24 +93,24 @@
             android:scaleType="fitXY" >
         </ImageView>
 
-        <TextView
-            android:id="@+id/ps_tvHot_Detail_Previous"
-            style="@style/font_bold_while14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/ps_imgHot_Detail_Previous"
+            android:layout_width="@dimen/ps_dimen_width_4"
+            android:layout_height="@dimen/ps_dimen_height_2p5"
             android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:text="@string/display_previous" />
+            android:layout_marginLeft="2dp"
+            android:contentDescription="@string/display_previous"
+            android:background="@drawable/selector_button_detail_back" />
 
-        <TextView
-            android:id="@+id/ps_tvHot_Detail_Next"
-            style="@style/font_bold_while14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/ps_imgHot_Detail_Next"
+            android:layout_width="@dimen/ps_dimen_width_4"
+            android:layout_height="@dimen/ps_dimen_height_2p5"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:text="@string/display_next" />
+            android:layout_marginRight="2dp"
+            android:contentDescription="@string/display_next"
+            android:background="@drawable/selector_button_detail_next" />
     </RelativeLayout>
 
 </LinearLayout>

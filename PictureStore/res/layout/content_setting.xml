@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/ps_dimen_height_2"
-            android:layout_marginTop="@dimen/ps_dimen_height_2"
             android:text="@string/content_setting_security" />
 
         <LinearLayout
@@ -84,7 +83,7 @@
         <!-- Using temparory view here to fix ScrollView bug when scroll down -->
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="50dp" />
     </LinearLayout>
 
 </com.picturestore.view.EnhancedScrollView>

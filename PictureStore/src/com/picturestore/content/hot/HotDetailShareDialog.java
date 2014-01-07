@@ -46,12 +46,16 @@ public class HotDetailShareDialog extends Dialog {
 	private boolean mShareFacebookComplete;
 	private boolean mShareTwitterComplete;
 	private StringBuilder mShareMessage = new StringBuilder();
+	private HotDataItem mDataItem;
 
-	public HotDetailShareDialog(Context context, Fragment fragment) {
+	public HotDetailShareDialog(Context context, Fragment fragment,
+			HotDataItem dataItem) {
 		super(context);
 
 		mContext = context;
 		mFragment = fragment;
+		mDataItem = dataItem;
+
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setBackgroundDrawable(new BitmapDrawable());
 		getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -111,7 +115,7 @@ public class HotDetailShareDialog extends Dialog {
 					}
 				});
 
-		final View close = findViewById(R.id.ps_tvHot_Share_Close);
+		final View close = findViewById(R.id.ps_imgHot_Share_Close);
 		close.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -130,7 +134,8 @@ public class HotDetailShareDialog extends Dialog {
 		mShareFacebookComplete = false;
 		mShareTwitterComplete = false;
 		mShareMessage.delete(0, mShareMessage.length());
-		String message = mEdtComment.getText().toString();
+		String message = mEdtComment.getText().toString() + " "
+				+ mDataItem.getImage();
 		if (mSwSocialFacebook.isChecked()) {
 			Bundle bundle = new Bundle();
 			bundle.putInt(FacebookManager.EXTRA_FACEBOOK_ACTION,

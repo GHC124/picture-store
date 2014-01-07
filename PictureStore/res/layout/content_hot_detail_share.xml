@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/ps_dimen_width_62"
-    android:layout_height="@dimen/ps_dimen_height_38p7"
+    android:layout_height="@dimen/ps_dimen_height_43"
     android:background="@drawable/ps_bg_dialog"
     android:orientation="vertical"
     android:layout_gravity="center" >
@@ -16,21 +16,19 @@
         >
 
         <TextView
-            style="@style/font_bold_black12"
+            style="@style/font_bold_black14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/content_hot_share_dialog" />
 
-        <TextView
-            android:id="@+id/ps_tvHot_Share_Close"
-            style="@style/font_bold_CCCCCC14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView android:id="@+id/ps_imgHot_Share_Close"
+            android:layout_width="@dimen/ps_dimen_width_3"
+            android:layout_height="@dimen/ps_dimen_height_1p8"
+            android:background="@drawable/selector_button_close"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:text="@string/display_x" />
+            android:contentDescription="@string/display_x"/>        
     </RelativeLayout>
 
     <View

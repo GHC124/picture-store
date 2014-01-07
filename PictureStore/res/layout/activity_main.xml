@@ -37,10 +37,10 @@
                 android:layout_height="@dimen/ps_dimen_height_2p5"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:layout_marginTop="@dimen/ps_dimen_height_1"
                 android:contentDescription="@string/display_content_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/ps_menu_hot" />
+                android:background="@drawable/selector_button_menu_hot"/>
 
             <TextView
                 style="@style/font_bold_black12"
@@ -70,7 +70,7 @@
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/display_content_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/ps_menu_idol" />
+                android:background="@drawable/selector_button_menu_idol" />
 
             <TextView
                 style="@style/font_bold_black12"
@@ -97,10 +97,10 @@
                 android:layout_height="@dimen/ps_dimen_height_2p5"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:layout_marginTop="@dimen/ps_dimen_height_1"
                 android:contentDescription="@string/display_content_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/ps_menu_galary" />
+                android:background="@drawable/selector_button_menu_galary" />
 
             <TextView
                 style="@style/font_bold_black12"
@@ -127,10 +127,10 @@
                 android:layout_height="@dimen/ps_dimen_height_2p5"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/ps_dimen_height_2"
+                android:layout_marginTop="@dimen/ps_dimen_height_1"
                 android:contentDescription="@string/display_content_description"
                 android:scaleType="fitXY"
-                android:src="@drawable/ps_menu_more" />
+                android:background="@drawable/selector_button_menu_more" />
 
             <TextView
                 style="@style/font_bold_black12"
@@ -147,8 +147,8 @@
     <RelativeLayout
         android:id="@+id/ps_rlMenuItem_SelectBox"
         android:layout_width="@dimen/ps_dimen_width_14"
-        android:layout_height="@dimen/ps_dimen_height_6"
-        android:background="@drawable/menu_item_border"
+        android:layout_height="2dp"
+        android:background="@color/ps_menu_select"
         android:visibility="invisible" >
     </RelativeLayout>
 

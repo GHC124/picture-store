@@ -28,6 +28,7 @@ import com.picturestore.common.net.manager.PictureStoreManagerFactory;
 import com.picturestore.common.util.PictureStoreImageDownloader;
 import com.picturestore.content.ContentDetailFragment;
 import com.picturestore.content.ContentDetailsViewFactory.MenuItem;
+import com.picturestore.content.about.AboutDialog;
 import com.picturestore.popup.PopupWindowsManager;
 import com.picturestore.popup.PopupWindowsTypes;
 
@@ -66,8 +67,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		return false;
 	}
 
 	public void onMenuItemClick(View v) {
@@ -148,14 +148,15 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-
+				AboutDialog aboutDialog = new AboutDialog(MainActivity.this, null);
+				aboutDialog.show();
 				mPopupWindowsManager.closePopupWindow();
 			}
 		});
 		setting.startAnimation(AnimationFactory.TranslateAnimation(Animation.RELATIVE_TO_PARENT, -100, 0, 0,
 				0, 1000, 0, null));
 		about.startAnimation(AnimationFactory.TranslateAnimation(Animation.RELATIVE_TO_PARENT, -100, 0, 0, 0,
-				1000, 500, null));
+				1000, 250, null));
 	}
 
 	// Get data from server
@@ -200,8 +201,9 @@ public class MainActivity extends BaseActivity {
 			}
 		}
 		newView.getLocationOnScreen(toLocation);
-		fromLocation[1] = fromLocation[1] - mRlSelectBox.getHeight() - 35;
-		toLocation[1] = toLocation[1] - mRlSelectBox.getHeight() - 35;
+		int offset = (int)getResources().getDimension(R.dimen.ps_dimen_height_8p7);
+		fromLocation[1] = fromLocation[1] - mRlSelectBox.getHeight() - offset;
+		toLocation[1] = toLocation[1] - mRlSelectBox.getHeight() - offset;
 
 		float fromXDelta = fromLocation[0];
 		float toXDelta = toLocation[0];
