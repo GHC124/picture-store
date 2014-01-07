@@ -7,6 +7,7 @@ public class MasterData implements PictureStoreData {
 	private String mCreated;
 	private String mEdited;
 	private List<HotData> mHotData;
+	private GalaryData mGalaryData;
 
 	public String getAuthor() {
 		return mAuthor;
@@ -38,6 +39,14 @@ public class MasterData implements PictureStoreData {
 
 	public void setHotData(List<HotData> hotData) {
 		mHotData = hotData;
+	}
+
+	public GalaryData getGalaryData() {
+		return mGalaryData;
+	}
+
+	public void setGalaryData(GalaryData galaryData) {
+		mGalaryData = galaryData;
 	}
 
 }

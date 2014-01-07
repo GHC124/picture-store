@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.picturestore.common.net.data.GalaryData;
 import com.picturestore.common.net.data.HotData;
 import com.picturestore.common.net.data.MasterData;
 
@@ -16,6 +17,7 @@ public class MasterDataParser {
 	private static final String CREATED_KEY = "created";
 	private static final String EDITED_KEY = "edited";
 	private static final String HOTS_KEY = "hots";
+	private static final String GALARY_KEY = "galary";
 
 	public static MasterData parse(JSONObject jsonObj) throws JSONException,
 			ParseException {
@@ -41,6 +43,12 @@ public class MasterDataParser {
 				list.add(HotDataParser.parse(item));
 			}
 			data.setHotData(list);
+		}
+
+		if (jsonObj.has(GALARY_KEY)) {
+			GalaryData galaryData = GalaryDataParser.parse(jsonObj
+					.getJSONObject(GALARY_KEY));
+			data.setGalaryData(galaryData);
 		}
 
 		return data;

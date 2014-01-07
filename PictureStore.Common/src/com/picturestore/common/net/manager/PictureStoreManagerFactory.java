@@ -31,4 +31,13 @@ public class PictureStoreManagerFactory {
 				Request.Method.GET, url, null, listener, errorListener);
 		return new PictureStoreManager(requestQueue, jsonObjectRequest);
 	}
+	
+	public static PictureStoreManager newGetGalaryCategoryAllDataManager(
+			RequestQueue requestQueue, String url,
+			Response.Listener<JSONObject> listener,
+			Response.ErrorListener errorListener) {
+		JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+				Request.Method.GET, url, null, listener, errorListener);
+		return new PictureStoreManager(requestQueue, jsonObjectRequest);
+	}
 }
