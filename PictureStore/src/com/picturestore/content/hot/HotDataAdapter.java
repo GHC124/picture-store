@@ -16,8 +16,9 @@ import com.picturestore.BaseListAdapter;
 import com.picturestore.BaseViewHolder;
 import com.picturestore.R;
 import com.picturestore.common.util.PictureStoreImageDownloader;
+import com.picturestore.content.ItemDataItem;
 
-public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
+public class HotDataAdapter extends ArrayAdapter<ItemDataItem> implements
 		BaseListAdapter {
 	private Context mContext;
 	private Fragment mFragment;
@@ -81,7 +82,7 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 				.getTag();
 		dataViewHolder.mInflatView = inflatView;
 		if (inflatView) {
-			HotDataItem dataItem = getItem(position);
+			ItemDataItem dataItem = getItem(position);
 			PictureStoreImageDownloader.download(dataItem.getImage(),
 					dataViewHolder.mImageView);
 		}
@@ -102,9 +103,4 @@ public class HotDataAdapter extends ArrayAdapter<HotDataItem> implements
 			mInflatView = inflatView;
 		}
 	}
-
-	public interface HotDataListener {
-		void onClick(int position, HotDataItem dataItem);
-	}
-
 }

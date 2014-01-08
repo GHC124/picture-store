@@ -1,4 +1,4 @@
-package com.picturestore.content.hot;
+package com.picturestore.content;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,7 +27,7 @@ import com.picturestore.social.FacebookManager;
 import com.picturestore.social.TwitterManager;
 import com.picturestore.social.twitter.Twitter;
 
-public class HotDetailShareDialog extends Dialog {
+public class ItemDetailShareDialog extends Dialog {
 	private static final int MAX_TWITTER_TEXT_COUNT = 140;
 
 	private Context mContext;
@@ -46,10 +46,10 @@ public class HotDetailShareDialog extends Dialog {
 	private boolean mShareFacebookComplete;
 	private boolean mShareTwitterComplete;
 	private StringBuilder mShareMessage = new StringBuilder();
-	private HotDataItem mDataItem;
+	private ItemDataItem mDataItem;
 
-	public HotDetailShareDialog(Context context, Fragment fragment,
-			HotDataItem dataItem) {
+	public ItemDetailShareDialog(Context context, Fragment fragment,
+			ItemDataItem dataItem) {
 		super(context);
 
 		mContext = context;

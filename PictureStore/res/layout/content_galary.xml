@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:background="@drawable/ps_bg">
+    android:layout_height="match_parent"
+    android:background="@drawable/ps_bg" >
 
     <LinearLayout
         android:id="@+id/ps_llGalary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible" >
+        android:visibility="invisible" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/ps_tvHot_Sort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Sort" 
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:text="Sort" />
 
             <TextView
                 android:id="@+id/ps_tvHot_Category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:text="Category" 
-                android:padding="5dp"/>
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:text="Category" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp" />
+            android:layout_marginRight="2dp"
+            android:background="@color/ps_border" />
+
+        <GridView android:id="@+id/ps_grdGalary_Item"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:numColumns="4"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
+        </GridView>
     </LinearLayout>
 
     <ProgressBar

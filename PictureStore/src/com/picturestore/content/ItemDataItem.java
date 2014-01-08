@@ -1,7 +1,7 @@
-package com.picturestore.content.hot;
+package com.picturestore.content;
 
-public class HotDataItem {
-	private String mImage;
+public class ItemDataItem {
+	protected String mImage;
 
 	public String getImage() {
 		return mImage;

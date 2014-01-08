@@ -29,6 +29,8 @@ import com.picturestore.common.net.data.MasterData;
 import com.picturestore.common.net.data.parser.HotDetailDataParser;
 import com.picturestore.common.net.manager.PictureStoreManagerFactory;
 import com.picturestore.content.IContentDetailView;
+import com.picturestore.content.ItemDataItem;
+import com.picturestore.content.ItemDetailDialog;
 import com.picturestore.view.EnhancedScrollView;
 import com.picturestore.view.HorizontalListView;
 
@@ -118,7 +120,7 @@ public class HotFragment implements IContentDetailView {
 						}
 						List<String> links = countryData.getLinkData();
 						for (String link : links) {
-							HotDataItem dataItem = new HotDataItem();
+							ItemDataItem dataItem = new ItemDataItem();
 							dataItem.setImage(link);
 							adapter.add(dataItem);
 						}
@@ -162,11 +164,11 @@ public class HotFragment implements IContentDetailView {
 	private void onItemDetailClick(HorizontalListView listView, int position) {
 		BaseListAdapter adapter = (BaseListAdapter) listView.getAdapter();
 
-		List<HotDataItem> list = new ArrayList<HotDataItem>();
+		List<ItemDataItem> list = new ArrayList<ItemDataItem>();
 		for (int i = 0; i < adapter.getCount(); i++) {
-			list.add((HotDataItem) adapter.getItem(i));
+			list.add((ItemDataItem) adapter.getItem(i));
 		}
-		HotDetailDialog detailDialog = new HotDetailDialog(mContext, mFragment,
+		ItemDetailDialog detailDialog = new ItemDetailDialog(mContext, mFragment,
 				list, position);
 		detailDialog.show();
 	}

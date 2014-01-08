@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/ps_dimen_width_14"
+    android:layout_height="@dimen/ps_dimen_height_8"
+    >
+
+    <com.picturestore.animation.FadeInImageView
+        android:id="@+id/ps_imgGalary_ListItem"
+        android:layout_width="@dimen/ps_dimen_width_14"
+        android:layout_height="@dimen/ps_dimen_height_8"
+        android:layout_gravity="center"
+        android:contentDescription="@string/display_content_description"
+        android:scaleType="fitXY" >
+    </com.picturestore.animation.FadeInImageView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/galary_item_border"
+        android:layout_margin="1dp" />
+
+</RelativeLayout>

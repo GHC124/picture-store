@@ -1,4 +1,4 @@
-package com.picturestore.content.hot;
+package com.picturestore.content;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -25,10 +24,10 @@ import com.picturestore.animation.FlipAnimator;
 import com.picturestore.common.util.PictureStoreDownloadManager;
 import com.picturestore.common.util.PictureStoreImageDownloader;
 
-public class HotDetailDialog extends Dialog {
+public class ItemDetailDialog extends Dialog {
 	private Context mContext;
 	private Fragment mFragment;
-	private List<HotDataItem> mListData;
+	private List<ItemDataItem> mListData;
 	private ImageView mImageView;
 	private RelativeLayout mRlItem;
 	private ProgressDialog mProgressDialog;
@@ -41,8 +40,8 @@ public class HotDetailDialog extends Dialog {
 	private View mPrevious;
 	private View mNext;
 
-	public HotDetailDialog(Context context, Fragment fragment,
-			List<HotDataItem> data, int position) {
+	public ItemDetailDialog(Context context, Fragment fragment,
+			List<ItemDataItem> data, int position) {
 		super(context);
 
 		mContext = context;
@@ -62,7 +61,7 @@ public class HotDetailDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				HotDetailShareDialog shareDialog = new HotDetailShareDialog(
+				ItemDetailShareDialog shareDialog = new ItemDetailShareDialog(
 						mContext, mFragment, mListData.get(mCurrentPosition));
 				shareDialog.show();
 			}
@@ -75,7 +74,7 @@ public class HotDetailDialog extends Dialog {
 			public void onClick(View v) {
 				if (PictureStoreDownloadManager
 						.isDownloadManagerAvailable(mContext)) {
-					HotDataItem dataItem = mListData.get(mCurrentPosition);
+					ItemDataItem dataItem = mListData.get(mCurrentPosition);
 					int separate = dataItem.getImage().lastIndexOf("/");
 					String fileName = dataItem.getImage();
 					if (separate > 0) {
@@ -114,7 +113,7 @@ public class HotDetailDialog extends Dialog {
 			}
 		});
 
-		mFadeOutAnim = AnimationFactory.FadeOutAnimation(500, mFadeOutListener);
+		mFadeOutAnim = AnimationFactory.FadeOutAnimation(500, null);
 		mFadeInAnim = AnimationFactory.FadeInAnimation(500, null);
 
 		mFlipAnimator = new FlipAnimator();
@@ -240,26 +239,6 @@ public class HotDetailDialog extends Dialog {
 		}
 	};
 
-	private AnimationListener mFadeOutListener = new AnimationListener() {
-
-		@Override
-		public void onAnimationStart(Animation animation) {
-
-		}
-
-		@Override
-		public void onAnimationRepeat(Animation animation) {
-
-		}
-
-		@Override
-		public void onAnimationEnd(Animation animation) {
-			if (!animation.hasEnded()) {
-				mImageView.setAlpha(0.0f);
-			}
-		}
-	};
-
 	private FlipAnimationListener mAnimationListener = new FlipAnimationListener() {
 
 		@Override
@@ -278,6 +257,9 @@ public class HotDetailDialog extends Dialog {
 		public void onAnimationEnd(Animation animation) {
 			mPrevious.setEnabled(true);
 			mNext.setEnabled(true);
+			if(mImageView.getAlpha() < 1.0f){
+				mImageView.setAlpha(1.0f);
+			}
 		}
 
 		@Override
@@ -287,7 +269,7 @@ public class HotDetailDialog extends Dialog {
 	};
 
 	private synchronized void setBitmap() {
-		if (!mIsSetBitmap && mBitmap != null) {
+		if (!mIsSetBitmap && mBitmap != null) {			
 			mFadeOutAnim.cancel();
 			mImageView.setImageBitmap(mBitmap);
 			mImageView.startAnimation(mFadeInAnim);
